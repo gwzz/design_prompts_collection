@@ -1,0 +1,9 @@
+{
+  "number": 999,
+  "name": "New Style",
+  "slug": "new-style",
+  "mode": "light",
+  "font": "sans-serif",
+  "description": "One-line summary of the style for the card grid.",
+  "prompt": "Design Style: New Style\nMode: light | Font: sans-serif\n\nDescribe the overall visual language here.\n\n--- Layout by Section ---\n\n[Hero]\nDescribe the hero.\n\n[Stats]\nDescribe the stats section.\n\n[Features]\nDescribe the features section.\n\n[How It Works]\nDescribe the how-it-works section.\n\n[Benefits]\nDescribe the benefits section.\n\n[Pricing]\nDescribe the pricing section.\n\n[Testimonials]\nDescribe the testimonials section.\n\n[FAQ]\nDescribe the FAQ section.\n\n[Blog]\nDescribe the blog section.\n\n[Footer]\nDescribe the footer."
+}

@@ -1,0 +1,9 @@
+﻿{
+    "number":  30,
+    "name":  "Terminal CLI",
+    "slug":  "terminal-cli",
+    "mode":  "dark",
+    "font":  "mono",
+    "description":  "A raw, functional, and retro-futuristic command-line interfa...",
+    "prompt":  "Design Style: Terminal CLI\nMode: dark | Font: mono\n\nA raw, functional, and retro-futuristic command-line interface aesthetic. High contrast, monospaced precision, and blinking cursors.\n\n--- Layout by Section ---\n\n[Hero]\nA massive ASCII art logo or headline. The subheadline types itself out. CTAs are rendered as command prompts.\n\n[Stats]\nDisplayed as a system status report or table output (e.g., \u0027UPTIME: 99.9%\u0027, \u0027USERS: 10k\u0027).\n\n[Features]\nA grid of terminal windows or \u0027man page\u0027 style entries. Each feature has a command-line flag (e.g., \u0027--speed\u0027, \u0027--security\u0027).\n\n[How It Works]\nA step-by-step shell script execution log. \u0027Step 1: Initializing...\u0027, \u0027Step 2: Processing...\u0027.\n\n[Benefits]\nA split-screen layout like a code editor (vim/vscode) showing \u0027Before\u0027 vs \u0027After\u0027 code blocks.\n\n[Pricing]\nAn ASCII table layout. Selected plan highlights with an inverted color block.\n\n[Testimonials]\nGit commit logs or IRC chat logs. \u0027User@host says: ...\u0027\n\n[FAQ]\nA \u0027man\u0027 page manual layout or a help command output (e.g., \u0027help --topic billing\u0027).\n\n[Blog]\nA file directory listing (ls -l). Each post is a file with permissions, date, and author.\n\n[Footer]\nA simple system footer showing shell version, current path, and copyright as a comment."
+}

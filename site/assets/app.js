@@ -9,7 +9,7 @@ function filterCards() {
   const search = document.getElementById('searchInput').value.trim().toLowerCase();
   let visible = 0;
 
-  document.querySelectorAll('.style-card').forEach((card) => {
+  document.querySelectorAll('.catalog-item').forEach((card) => {
     const matchesMode = state.mode === 'all' || card.dataset.mode === state.mode;
     const matchesFont = state.font === 'all' || card.dataset.font === state.font;
     const matchesCategory = state.category === 'all' || card.dataset.category === state.category;
@@ -25,7 +25,8 @@ function filterCards() {
     if (isVisible) visible += 1;
   });
 
-  document.getElementById('resultCount').textContent = `${visible} styles`;
+  const suffix = document.body.dataset.resultsSuffix || 'styles';
+  document.getElementById('resultCount').textContent = `${visible} ${suffix}`;
   document.getElementById('noResults').hidden = visible !== 0;
 }
 
@@ -39,4 +40,15 @@ document.querySelectorAll('[data-filter]').forEach((button) => {
 });
 
 document.getElementById('searchInput').addEventListener('input', filterCards);
+
+document.querySelectorAll('[data-locale-link]').forEach((link) => {
+  link.addEventListener('click', () => {
+    try {
+      localStorage.setItem('preferredLocale', link.dataset.locale);
+    } catch (error) {
+      // Ignore storage failures.
+    }
+  });
+});
+
 filterCards();

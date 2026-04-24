@@ -1,0 +1,9 @@
+﻿{
+    "number":  9,
+    "name":  "Corporate Trust",
+    "slug":  "corporate-trust",
+    "mode":  "light",
+    "font":  "sans-serif",
+    "description":  "Modern SaaS aesthetic balancing professionalism with approac...",
+    "prompt":  "Design Style: Corporate Trust\nMode: light | Font: sans-serif\n\nModern SaaS aesthetic balancing professionalism with approachability. Vibrant indigo/violet gradients, soft colored shadows, isometric depth, and clean geometric sans-serif typography.\n\n--- Layout by Section ---\n\n[Hero]\nSplit layout with 60/40 composition. Left: Gradient headline split, dual-CTA buttons, trust indicator. Right: Isometric floating card with subtle 3D transforms and decorative elements.\n\n[Stats]\nClean horizontal strip with large bold numbers, subtle text. Bordered top/bottom to create visual break.\n\n[Product Detail]\nTwo-column layout with text-left, visual-right. Abstract UI mockup inside gradient container with offset shadow element.\n\n[Features]\nZig-zag alternating layout. Icon badges with soft backgrounds, feature cards with isometric perspective transforms, decorative gradient blobs.\n\n[Blog]\nThree-column card grid. Image-first design with gradient overlays on hover, metadata above headline.\n\n[How It Works]\nHorizontal step timeline with connecting gradient line. Numbered badges with glow effects on dark background.\n\n[Benefits]\nTwo-column split: checklist items on left, isometric 3D card visualization on right with gradient background.\n\n[Pricing]\nThree-column grid with center card elevated and highlighted. Relative positioning badge for \u0027Most Popular\u0027.\n\n[Testimonials]\nThree-column card grid with star ratings, quotes, and user avatars with ring styling.\n\n[FAQ]\nAccordion with details/summary HTML. Chevron rotation on expand, subtle background wash on open state.\n\n[Footer]\nFour-column grid on desktop, stacked on mobile. Dark slate background with lighter link hover states."
+}

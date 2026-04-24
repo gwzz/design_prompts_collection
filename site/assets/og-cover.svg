@@ -16,5 +16,5 @@
   <rect x="74" y="74" width="1052" height="482" rx="36" fill="none" stroke="rgba(255,255,255,0.12)"/>
   <text x="120" y="250" fill="white" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="700">Design Prompts Collection</text>
   <text x="120" y="330" fill="#a5b4fc" font-family="Inter, Arial, sans-serif" font-size="38">32 verified UI style prompts for focused static inspiration</text>
-  <text x="120" y="430" fill="url(#accent)" font-family="JetBrains Mono, monospace" font-size="28">search • filter • preview • copy</text>
+  <text x="120" y="430" fill="url(#accent)" font-family="JetBrains Mono, monospace" font-size="28">search / filter / preview / copy</text>
 </svg>

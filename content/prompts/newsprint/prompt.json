@@ -1,0 +1,9 @@
+﻿{
+    "number":  22,
+    "name":  "Newsprint",
+    "slug":  "newsprint",
+    "mode":  "light",
+    "font":  "serif",
+    "description":  "Stark black and white, high contrast, tight grids, newspaper...",
+    "prompt":  "Design Style: Newsprint\nMode: light | Font: serif\n\nStark black and white, high contrast, tight grids, newspaper aesthetic, sharp lines, editorial depth.\n\n--- Layout by Section ---\n\n[Hero]\nSplit 8-col/4-col grid. Main column has massive headline (5xl â†’ 9xl), drop-cap intro paragraph, and CTA buttons. Side column contains stats box and ad placeholder with borders.\n\n[Stats]\nFull-width black background ticker with horizontal marquee. Monospace labels, bold values, red accent badges.\n\n[Features]\n4-column top grid with icons in bordered boxes, 3-column bottom grid with bullet points. All cells separated by black borders (collapsed grid style).\n\n[Blog]\n3-column grid with bordered card style. Grayscale images with sepia hover, date/author metadata in monospace, underline on hover.\n\n[How It Works]\nDark inverted section (black bg, white text). 3-column grid with numbered red boxes, horizontal connecting line, vertical layout breakdown.\n\n[Benefits]\nEditorial 5-col/7-col split. Left has illustration placeholder, right has numbered list in 2-column text layout.\n\n[Testimonials]\n2-column grid with large quote marks, serif quotes, bordered author cards with grayscale images.\n\n[Pricing]\n3-column table grid with explicit borders. Highlighted tier has distinct background, massive serif pricing, feature checkmarks.\n\n[FAQ]\n4-col/8-col split. Sidebar has help center box. Main area has accordion with plus/minus icons that rotate, expandable answers.\n\n[Footer]\nMulti-column site map with strict borders, company description, social icons in bordered boxes, edition/copyright info."
+}

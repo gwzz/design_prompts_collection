@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="一个聚焦的静态 Prompt 索引站，收录 32 个经过验证的 UI 风格 Prompt，支持筛选、预览与复制。">
+<meta name="keywords" content="design prompts, ui prompts, static site, prompt library, design system inspiration">
+<meta name="author" content="gwzz">
+<meta name="theme-color" content="#0b0b12">
+<link rel="canonical" href="https://design-prompts-collection.vercel.app/zh/index.html">
+<link rel="alternate" hreflang="en" href="https://design-prompts-collection.vercel.app/en/index.html"><link rel="alternate" hreflang="zh-CN" href="https://design-prompts-collection.vercel.app/zh/index.html"><link rel="alternate" hreflang="x-default" href="https://design-prompts-collection.vercel.app/en/index.html">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Design Prompts Collection">
+<meta property="og:title" content="Design Prompts Collection | 32 个 UI 风格 Prompt">
+<meta property="og:description" content="一个聚焦的静态 Prompt 索引站，收录 32 个经过验证的 UI 风格 Prompt，支持筛选、预览与复制。">
+<meta property="og:url" content="https://design-prompts-collection.vercel.app/zh/index.html">
+<meta property="og:image" content="https://design-prompts-collection.vercel.app/assets/og-cover.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Design Prompts Collection | 32 个 UI 风格 Prompt">
+<meta name="twitter:description" content="一个聚焦的静态 Prompt 索引站，收录 32 个经过验证的 UI 风格 Prompt，支持筛选、预览与复制。">
+<meta name="twitter:image" content="https://design-prompts-collection.vercel.app/assets/og-cover.svg">
+<title>Design Prompts Collection | 32 个 UI 风格 Prompt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Nunito:wght@400;700;900&family=Patrick+Hand&family=Playfair+Display:wght@400;700;900&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-results-suffix="个风格">
+  <div class="page-shell">
+    <section class="masthead">
+      <div class="masthead-inner">
+        <span class="masthead-brand">Design Prompts Collection</span>
+        <div class="masthead-links">
+          <a href="#catalog">浏览</a>
+          <a href="#featured">精选</a>
+          <a href="#why">使用方式</a>
+        </div>
+        <div class="lang-switcher" aria-label="语言">
+  <a class="lang-link" href="../en/index.html" data-locale-link data-locale="en">EN</a><a class="lang-link active" href="../zh/index.html" data-locale-link data-locale="zh">中文</a>
+</div>
+      </div>
+    </section>
+    <section class="hero-section">
+      <div class="hero-content poster-shell">
+        <div class="hero-copy">
+          <div class="hero-badge">聚焦型静态灵感索引</div>
+          <h1 class="hero-title">Design Prompts<br><span>Collection</span></h1>
+          <p class="hero-subtitle">一个聚焦的静态 UI Prompt 索引站。你可以按视觉风格快速浏览、比较并筛选，在确认合适之后直接复制完整 Prompt。</p>
+          <div class="hero-actions">
+            <a class="hero-action primary" href="#catalog">浏览 Prompt 索引</a>
+            <a class="hero-action" href="#featured">查看精选风格</a>
+          </div>
+          <div class="hero-meta"><span>32 个已验证风格</span><span>面向 Prompt 的结构</span><span>搜索、筛选、预览、复制</span></div>
+        </div>
+        <aside class="hero-panel" id="featured">
+          <div class="hero-panel-label">精选 Prompt</div>
+          <a href="prompts/academia.html" class="featured-link" style="--card-accent:#b8860b;">
+  <span class="featured-index">#01</span>
+  <span class="featured-name">Academia</span>
+  <span class="featured-note">University aesthetic, old libraries, warm paper textures, traditional serifs, gold/crimson accents.</span>
+</a><a href="prompts/aurora-mesh.html" class="featured-link" style="--card-accent:#7c3aed;">
+  <span class="featured-index">#03</span>
+  <span class="featured-name">Aurora Mesh</span>
+  <span class="featured-note">Flowing mesh gradients, aurora effects, vibrant color transitions, modern startup aesthetic inspired by Stripe and Vercel</span>
+</a><a href="prompts/neo-brutalism.html" class="featured-link" style="--card-accent:#ff3333;">
+  <span class="featured-index">#20</span>
+  <span class="featured-name">Neo-brutalism</span>
+  <span class="featured-note">A raw, high-contrast aesthetic that mimics print design and DIY punk culture. Characterized by cream backgrounds, thick black borders (4px), hard offset shadows with zero blur, clashing vibrant colors (Hot Red, Vivid Yellow, Soft Violet), and Space Grotesk typography at heavy weights. Embraces asymmetry, rotation, sticker-like layering, and organized visual chaos.</span>
+</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="quick-stats">
+      <div class="quick-stat"><span class="quick-stat-value">32</span><span class="quick-stat-label">风格</span></div>
+      <div class="quick-stat"><span class="quick-stat-value">4</span><span class="quick-stat-label">分类</span></div>
+      <div class="quick-stat"><span class="quick-stat-value">3</span><span class="quick-stat-label">字体模式</span></div>
+      <div class="quick-stat"><span class="quick-stat-value">331</span><span class="quick-stat-label">区块提示</span></div>
+    </section>
+
+    <section class="support-section" id="why">
+      <div class="support-copy">
+        <p class="section-kicker">目录逻辑</p>
+        <h2>更快找到合适的视觉语言。</h2>
+        <p>每个 Prompt 在进入详情页之前，就会先展示它的视觉主张、覆盖的页面区块，以及大致适用场景。目标不是堆更多风格，而是帮你更快判断。</p>
+      </div>
+      <div class="support-list">
+        <div class="support-item"><span>01</span><p>按情绪、字体系统和分类快速扫描，不必逐个打开详情页。</p></div>
+        <div class="support-item"><span>02</span><p>通过区块覆盖和关键词，预判 Prompt 的结构完整度。</p></div>
+        <div class="support-item"><span>03</span><p>确认合适后再进入详情页，直接复制并改写。</p></div>
+      </div>
+    </section>
+
+    <section class="catalog-shell" id="catalog">
+      <div class="catalog-header">
+        <div>
+          <p class="section-kicker">Prompt 索引</p>
+          <h2>像查设计目录一样浏览，而不是翻文件列表。</h2>
+        </div>
+        <p class="catalog-header-copy">首页优先提供强层级、精选入口和高密度元信息，帮助你先比较、再决定，而不是先点开再判断。</p>
+      </div>
+
+      <div class="controls-section">
+        <div class="search-container">
+          <input id="searchInput" type="search" placeholder="搜索风格、模式、字体或分类">
+        </div>
+
+        <div class="filter-panel">
+          <div class="filter-row">
+            <div class="filter-group" data-filter-group>
+              <span class="filter-label">模式</span>
+              <button class="filter-btn active" type="button" data-selectable data-filter="mode" data-value="all">全部</button>
+              <button class="filter-btn" type="button" data-selectable data-filter="mode" data-value="dark">暗色</button>
+              <button class="filter-btn" type="button" data-selectable data-filter="mode" data-value="light">亮色</button>
+            </div>
+
+            <div class="filter-group" data-filter-group>
+              <span class="filter-label">字体</span>
+              <button class="filter-btn active" type="button" data-selectable data-filter="font" data-value="all">全部</button>
+              <button class="filter-btn" type="button" data-selectable data-filter="font" data-value="serif">衬线</button>
+              <button class="filter-btn" type="button" data-selectable data-filter="font" data-value="sans-serif">无衬线</button>
+              <button class="filter-btn" type="button" data-selectable data-filter="font" data-value="mono">等宽</button>
+            </div>
+          </div>
+
+          <div class="category-row" data-filter-group">
+            <button class="cat-btn active" type="button" data-selectable data-filter="category" data-value="all">全部分类</button><button class="cat-btn" type="button" data-selectable data-filter="category" data-value="科技 / SaaS / 金融">科技 / SaaS / 金融</button><button class="cat-btn" type="button" data-selectable data-filter="category" data-value="编辑 / 排版 / 机构感">编辑 / 排版 / 机构感</button><button class="cat-btn" type="button" data-selectable data-filter="category" data-value="强风格 / 年轻化 / 高情绪">强风格 / 年轻化 / 高情绪</button><button class="cat-btn" type="button" data-selectable data-filter="category" data-value="物理质感 / 设计史 / 材料感">物理质感 / 设计史 / 材料感</button>
+          </div>
+          <p class="result-summary" id="resultCount">32 个风格</p>
+        </div>
+      </div>
+
+      <main class="cards-grid" aria-label="Prompt 风格列表">
+        <a href="prompts/academia.html" class="catalog-item" data-mode="dark" data-font="serif" data-category="编辑 / 排版 / 机构感" data-category-search="编辑 / 排版 / 机构感" data-name="academia" style="--card-accent:#b8860b;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#1a1612,#2d2318);color:#d4c5a9;font-family:'Playfair Display',serif;">
+    <div class="catalog-preview-mark" style="color:#b8860b;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#01</span>
+      <span class="catalog-category">编辑 / 排版 / 机构感</span>
+    </div>
+    <h2 class="catalog-title">Academia</h2>
+    <p class="catalog-lead">University aesthetic, old libraries, warm paper textures, traditional serifs, gold/crimson accents.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-serif">serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">University aesthetic</span><span class="catalog-keyword">old libraries</span><span class="catalog-keyword">warm paper textures</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/art-deco.html" class="catalog-item" data-mode="dark" data-font="serif" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="art deco" style="--card-accent:#d4af37;">
+  <div class="catalog-preview" style="background:linear-gradient(180deg,#0d0d0d,#1a1a0e);color:#f0e6d3;font-family:'Playfair Display',serif;">
+    <div class="catalog-preview-mark" style="color:#d4af37;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#02</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Art Deco</h2>
+    <p class="catalog-lead">1920s Gatsby elegance, geometric precision, metallic gold accents, architectural symmetry, luxury heritage</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-serif">serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">1920s Gatsby elegance</span><span class="catalog-keyword">geometric precision</span><span class="catalog-keyword">metallic gold accents</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/aurora-mesh.html" class="catalog-item" data-mode="dark" data-font="sans-serif" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="aurora mesh" style="--card-accent:#7c3aed;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#0f0f1a,#1a0f2e,#0f1a2e);color:#e0e0ff;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#7c3aed;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#03</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Aurora Mesh</h2>
+    <p class="catalog-lead">Flowing mesh gradients, aurora effects, vibrant color transitions, modern startup aesthetic inspired by Stripe and Vercel</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Flowing mesh gradients</span><span class="catalog-keyword">aurora effects</span><span class="catalog-keyword">vibrant color transitions</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/bauhaus.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="bauhaus" style="--card-accent:#e63946;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#ffffff 50%,#2563eb 50%);color:#1a1a1a;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#e63946;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#04</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Bauhaus</h2>
+    <p class="catalog-lead">Bold geometric modernism with circles, squares, and triangles. Primary color palette (Red/Blue/Yellow) with stark black borders and hard shadows. Functional yet artistic with constructivist asymmetry.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Bold geometric modernism with circles</span><span class="catalog-keyword">squares</span><span class="catalog-keyword">and triangles</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/bold-typography.html" class="catalog-item" data-mode="dark" data-font="sans-serif" data-category="编辑 / 排版 / 机构感" data-category-search="编辑 / 排版 / 机构感" data-name="bold typography" style="--card-accent:#ff6b35;">
+  <div class="catalog-preview" style="background:#0a0a0a;color:#ffffff;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#ff6b35;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#05</span>
+      <span class="catalog-category">编辑 / 排版 / 机构感</span>
+    </div>
+    <h2 class="catalog-title">Bold Typography</h2>
+    <p class="catalog-lead">Type-driven design that treats massive typography as the primary visual element. Ultra-large headlines, extreme contrast, and dramatic negative space create poster-like compositions where words become art.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">12 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Type-driven design that treats massive typography as the primary visual element</span><span class="catalog-keyword">Ultra-large headlines</span><span class="catalog-keyword">extreme contrast</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/botanical-organic-serif.html" class="catalog-item" data-mode="light" data-font="serif" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="botanical / organic serif" style="--card-accent:#c17f59;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#faf6f0,#e8e0d4);color:#2d3b2d;font-family:'Playfair Display',serif;">
+    <div class="catalog-preview-mark" style="color:#c17f59;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#06</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Botanical / Organic Serif</h2>
+    <p class="catalog-lead">Soft, earthy, elegant design inspired by nature. Features organic shapes, generous rounded corners, paper grain texture, muted earth tones, and sophisticated serif typography that breathes warmth and natural luxury.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-serif">serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Soft</span><span class="catalog-keyword">earthy</span><span class="catalog-keyword">elegant design inspired by nature</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/clay.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="强风格 / 年轻化 / 高情绪" data-category-search="强风格 / 年轻化 / 高情绪" data-name="clay" style="--card-accent:#8b5cf6;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#f0e6ff,#fce7f3,#dbeafe);color:#2d1b4e;font-family:'Nunito',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#8b5cf6;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#07</span>
+      <span class="catalog-category">强风格 / 年轻化 / 高情绪</span>
+    </div>
+    <h2 class="catalog-title">Clay</h2>
+    <p class="catalog-lead">A hyper-realistic 3D aesthetic simulating soft, inflatable clay objects with multi-layered shadow stacks, vibrant candy-store colors, tactile micro-interactions, and organic floating ambient elements that create a premium, playful digital toy experience.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A hyper-realistic 3D aesthetic simulating soft</span><span class="catalog-keyword">inflatable clay objects with multi-layered shadow stacks</span><span class="catalog-keyword">vibrant candy-store colors</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/cyberpunk.html" class="catalog-item" data-mode="dark" data-font="mono" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="cyberpunk" style="--card-accent:#ff0080;">
+  <div class="catalog-preview" style="background:#0a0a0a;color:#00ff41;font-family:'JetBrains Mono',monospace;">
+    <div class="catalog-preview-mark" style="color:#ff0080;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#08</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Cyberpunk</h2>
+    <p class="catalog-lead">High contrast neon on black, glitch animations, terminal/monospace fonts, tech-oriented decorations. A dystopian digital aesthetic inspired by 80s sci-fi and hacker culture.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-mono">mono</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">High contrast neon on black</span><span class="catalog-keyword">glitch animations</span><span class="catalog-keyword">terminal/monospace fonts</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Details / Features</p>
+  </div>
+</a><a href="prompts/corporate-trust.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="corporate trust" style="--card-accent:#6366f1;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#ffffff,#eef2ff);color:#1e293b;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#6366f1;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#09</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Corporate Trust</h2>
+    <p class="catalog-lead">Modern SaaS aesthetic balancing professionalism with approachability. Vibrant indigo/violet gradients, soft colored shadows, isometric depth, and clean geometric sans-serif typography.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Modern SaaS aesthetic balancing professionalism with approachability</span><span class="catalog-keyword">Vibrant indigo/violet gradients</span><span class="catalog-keyword">soft colored shadows</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/flat-design.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="flat design" style="--card-accent:#2563eb;">
+  <div class="catalog-preview" style="background:#2563eb;color:#1a1a1a;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#2563eb;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#10</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Flat Design</h2>
+    <p class="catalog-lead">A design philosophy centered on removing depth cues (shadows, bevels, gradients) in favor of pure color, typography, and layout. Crisp, two-dimensional, and geometric with bold color blocking.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A design philosophy centered on removing depth cues (shadows</span><span class="catalog-keyword">bevels</span><span class="catalog-keyword">gradients) in favor of pure color</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/glassmorphism.html" class="catalog-item" data-mode="dark" data-font="sans-serif" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="glassmorphism" style="--card-accent:#a855f7;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#0f0f23,#1a0533,#0f2333);color:#ffffff;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#a855f7;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#11</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Glassmorphism</h2>
+    <p class="catalog-lead">Apple-inspired aesthetic with rich mesh gradients, premium blur, and constrained layouts.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">0 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Apple-inspired aesthetic with rich mesh gradients</span><span class="catalog-keyword">premium blur</span><span class="catalog-keyword">and constrained layouts</span></div>
+    <p class="catalog-sections-line"></p>
+  </div>
+</a><a href="prompts/industrial.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="industrial" style="--card-accent:#ff6600;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#e8e4de,#d4cfc7);color:#1a1a1a;font-family:'Space Mono',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#ff6600;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#12</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Industrial</h2>
+    <p class="catalog-lead">A high-fidelity industrial skeuomorphism aesthetic inspired by Dieter Rams and Teenage Engineering. Features tactile neumorphic elements, matte plastic surfaces, and safety-orange accents. Every component mimics physical hardware with realistic lighting, mechanical interactions, and manufacturing details like screws, vents, and LED indicators.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A high-fidelity industrial skeuomorphism aesthetic inspired by Dieter Rams and Teenage Engineering</span><span class="catalog-keyword">Features tactile neumorphic elements</span><span class="catalog-keyword">matte plastic surfaces</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/kinetic.html" class="catalog-item" data-mode="dark" data-font="sans-serif" data-category="强风格 / 年轻化 / 高情绪" data-category-search="强风格 / 年轻化 / 高情绪" data-name="kinetic" style="--card-accent:#ffdd00;">
+  <div class="catalog-preview" style="background:#0a0a0a;color:#ffffff;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#ffdd00;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#13</span>
+      <span class="catalog-category">强风格 / 年轻化 / 高情绪</span>
+    </div>
+    <h2 class="catalog-title">Kinetic</h2>
+    <p class="catalog-lead">Motion-first design where typography is the primary visual medium. Features infinite marquees, viewport-scaled text, scroll-triggered animations, and aggressive uppercase styling. High contrast, brutalist energy with rhythmic movement.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Motion-first design where typography is the primary visual medium</span><span class="catalog-keyword">Features infinite marquees</span><span class="catalog-keyword">viewport-scaled text</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/luxury.html" class="catalog-item" data-mode="light" data-font="serif" data-category="编辑 / 排版 / 机构感" data-category-search="编辑 / 排版 / 机构感" data-name="luxury" style="--card-accent:#b8860b;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#fafaf8,#f0ece6);color:#1a1a1a;font-family:'Playfair Display',serif;">
+    <div class="catalog-preview-mark" style="color:#b8860b;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#14</span>
+      <span class="catalog-category">编辑 / 排版 / 机构感</span>
+    </div>
+    <h2 class="catalog-title">Luxury</h2>
+    <p class="catalog-lead">Elegant serif typography with monochromatic palette and gold accents. Ultra-slow animations, generous white space, and architectural precision. High-end fashion magazine editorial aesthetic with depth through subtle shadows and layering.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-serif">serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Elegant serif typography with monochromatic palette and gold accents</span><span class="catalog-keyword">Ultra-slow animations</span><span class="catalog-keyword">generous white space</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/material.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="material" style="--card-accent:#6750a4;">
+  <div class="catalog-preview" style="background:#fffbfe;color:#1c1b1f;font-family:'Roboto',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#6750a4;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#15</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Material</h2>
+    <p class="catalog-lead">Playful, dynamic color extraction, pill-shaped buttons, and distinct elevation states. Based on Google&#x27;s Material Design 3 with enhanced depth and micro-interactions.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">12 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Playful</span><span class="catalog-keyword">dynamic color extraction</span><span class="catalog-keyword">pill-shaped buttons</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/maximalism.html" class="catalog-item" data-mode="dark" data-font="sans-serif" data-category="强风格 / 年轻化 / 高情绪" data-category-search="强风格 / 年轻化 / 高情绪" data-name="maximalism" style="--card-accent:#ff1493;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#0a0a0a,#1a0a2e,#2e0a1a);color:#ffffff;font-family:'Space Grotesk',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#ff1493;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#16</span>
+      <span class="catalog-category">强风格 / 年轻化 / 高情绪</span>
+    </div>
+    <h2 class="catalog-title">Maximalism</h2>
+    <p class="catalog-lead">Clashing patterns, dense layouts, oversaturated colors, intentional visual clutter. MORE IS MORE.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Clashing patterns</span><span class="catalog-keyword">dense layouts</span><span class="catalog-keyword">oversaturated colors</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Details / Features</p>
+  </div>
+</a><a href="prompts/simple-dark.html" class="catalog-item" data-mode="dark" data-font="sans-serif" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="simple dark" style="--card-accent:#f59e0b;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#0f172a,#1e293b);color:#e2e8f0;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#f59e0b;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#17</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Simple Dark</h2>
+    <p class="catalog-lead">An atmospheric dark mode design system built on deep slate tones with warm amber accents. Features ambient glow effects, glass-like translucent cards, geometric typography, and generous breathing room. Ethereal yet groundedâ€”like a premium app at midnight.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">An atmospheric dark mode design system built on deep slate tones with warm amber accents</span><span class="catalog-keyword">Features ambient glow effects</span><span class="catalog-keyword">glass-like translucent cards</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/modern-dark.html" class="catalog-item" data-mode="dark" data-font="sans-serif" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="modern dark" style="--card-accent:#8b5cf6;">
+  <div class="catalog-preview" style="background:#09090b;color:#fafafa;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#8b5cf6;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#18</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Modern Dark</h2>
+    <p class="catalog-lead">A cinematic, high-precision dark mode design featuring layered ambient lighting through animated gradient blobs, mouse-tracking spotlight effects, and meticulously crafted micro-interactions that feel like premium software.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A cinematic</span><span class="catalog-keyword">high-precision dark mode design featuring layered ambient lighting through animated gradient blobs</span><span class="catalog-keyword">mouse-tracking spotlight effects</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/monochrome.html" class="catalog-item" data-mode="light" data-font="serif" data-category="编辑 / 排版 / 机构感" data-category-search="编辑 / 排版 / 机构感" data-name="monochrome" style="--card-accent:#000000;">
+  <div class="catalog-preview" style="background:#ffffff;color:#000000;font-family:'Playfair Display',serif;">
+    <div class="catalog-preview-mark" style="color:#000000;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#19</span>
+      <span class="catalog-category">编辑 / 排版 / 机构感</span>
+    </div>
+    <h2 class="catalog-title">Monochrome</h2>
+    <p class="catalog-lead">A stark, editorial design system built on pure black and white. No accent colorsâ€”just dramatic contrast, oversized serif typography, and precise geometric layouts. Evokes high-end fashion editorials and architectural portfolios. Austere, sophisticated, unapologetically bold.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-serif">serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A stark</span><span class="catalog-keyword">editorial design system built on pure black and white</span><span class="catalog-keyword">No accent colorsâ€”just dramatic contrast</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/neo-brutalism.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="强风格 / 年轻化 / 高情绪" data-category-search="强风格 / 年轻化 / 高情绪" data-name="neo-brutalism" style="--card-accent:#ff3333;">
+  <div class="catalog-preview" style="background:#fffdf0;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#ff3333;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#20</span>
+      <span class="catalog-category">强风格 / 年轻化 / 高情绪</span>
+    </div>
+    <h2 class="catalog-title">Neo-brutalism</h2>
+    <p class="catalog-lead">A raw, high-contrast aesthetic that mimics print design and DIY punk culture. Characterized by cream backgrounds, thick black borders (4px), hard offset shadows with zero blur, clashing vibrant colors (Hot Red, Vivid Yellow, Soft Violet), and Space Grotesk typography at heavy weights. Embraces asymmetry, rotation, sticker-like layering, and organized visual chaos.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A raw</span><span class="catalog-keyword">high-contrast aesthetic that mimics print design and DIY punk culture</span><span class="catalog-keyword">Characterized by cream backgrounds</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/neumorphism.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="neumorphism" style="--card-accent:#6366f1;">
+  <div class="catalog-preview" style="background:#e0e5ec;color:#2d3748;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#6366f1;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#21</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Neumorphism</h2>
+    <p class="catalog-lead">Extruded and inset elements via dual shadows on monochromatic backgrounds. Soft, tactile, and physically grounded with excellent accessibility.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Extruded and inset elements via dual shadows on monochromatic backgrounds</span><span class="catalog-keyword">Soft</span><span class="catalog-keyword">tactile</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/newsprint.html" class="catalog-item" data-mode="light" data-font="serif" data-category="编辑 / 排版 / 机构感" data-category-search="编辑 / 排版 / 机构感" data-name="newsprint" style="--card-accent:#cc0000;">
+  <div class="catalog-preview" style="background:#f5f0eb;color:#1a1a1a;font-family:'Playfair Display',serif;">
+    <div class="catalog-preview-mark" style="color:#cc0000;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#22</span>
+      <span class="catalog-category">编辑 / 排版 / 机构感</span>
+    </div>
+    <h2 class="catalog-title">Newsprint</h2>
+    <p class="catalog-lead">Stark black and white, high contrast, tight grids, newspaper aesthetic, sharp lines, editorial depth.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-serif">serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Stark black and white</span><span class="catalog-keyword">high contrast</span><span class="catalog-keyword">tight grids</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / Blog</p>
+  </div>
+</a><a href="prompts/organic-natural.html" class="catalog-item" data-mode="light" data-font="serif" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="organic / natural" style="--card-accent:#8b6f47;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#faf6f0,#e8dfd4);color:#2d3b2d;font-family:'Playfair Display',serif;">
+    <div class="catalog-preview-mark" style="color:#8b6f47;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#23</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Organic / Natural</h2>
+    <p class="catalog-lead">Earth-inspired palette with moss greens, terracotta, and sand tones. Features organic blob shapes, grain texture overlays, asymmetric rounded corners, and soft shadows. Embraces wabi-sabi philosophy with warmth and natural imperfection.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-serif">serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Earth-inspired palette with moss greens</span><span class="catalog-keyword">terracotta</span><span class="catalog-keyword">and sand tones</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/playful-geometric.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="强风格 / 年轻化 / 高情绪" data-category-search="强风格 / 年轻化 / 高情绪" data-name="playful geometric" style="--card-accent:#ff6b6b;">
+  <div class="catalog-preview" style="background:#ffffff;color:#1a1a1a;font-family:'Nunito',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#ff6b6b;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#24</span>
+      <span class="catalog-category">强风格 / 年轻化 / 高情绪</span>
+    </div>
+    <h2 class="catalog-title">Playful Geometric</h2>
+    <p class="catalog-lead">A vibrant, high-energy aesthetic that combines a stable structural grid with whimsical geometric decorations. It relies on bright solid colors, simple primitive shapes (circles, triangles, squiggles), and tactile interactions to create a friendly, optimistic vibe reminiscent of modern Memphis design.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">12 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A vibrant</span><span class="catalog-keyword">high-energy aesthetic that combines a stable structural grid with whimsical geometric decorations</span><span class="catalog-keyword">It relies on bright solid colors</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/business-style.html" class="catalog-item" data-mode="light" data-font="serif" data-category="编辑 / 排版 / 机构感" data-category-search="编辑 / 排版 / 机构感" data-name="business style" style="--card-accent:#8b6f47;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#faf8f5,#f0ece6);color:#1a1a1a;font-family:'Playfair Display',serif;">
+    <div class="catalog-preview-mark" style="color:#8b6f47;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#25</span>
+      <span class="catalog-category">编辑 / 排版 / 机构感</span>
+    </div>
+    <h2 class="catalog-title">Business Style</h2>
+    <p class="catalog-lead">An editorial-inspired minimalist design system centered on elegant serif typography. Warm ivory backgrounds with subtle paper texture, refined spacing, rule lines, and classical proportions create a timeless, literary aesthetic. Enhanced depth through layered gradients and multi-toned shadows. The design whispers sophistication through restraint and typographic excellence.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-serif">serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">An editorial-inspired minimalist design system centered on elegant serif typography</span><span class="catalog-keyword">Warm ivory backgrounds with subtle paper texture</span><span class="catalog-keyword">refined spacing</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/retro.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="强风格 / 年轻化 / 高情绪" data-category-search="强风格 / 年轻化 / 高情绪" data-name="retro" style="--card-accent:#000080;">
+  <div class="catalog-preview" style="background:#c0c0c0;color:#000000;font-family:'Tahoma',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#000080;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#26</span>
+      <span class="catalog-category">强风格 / 年轻化 / 高情绪</span>
+    </div>
+    <h2 class="catalog-title">Retro</h2>
+    <p class="catalog-lead">Ugly-cool 90s nostalgia aesthetic with Windows 95 beveled UI, system fonts, bright primary colors, marquee scrolling text, and maximum visual chaos.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Ugly-cool 90s nostalgia aesthetic with Windows 95 beveled UI</span><span class="catalog-keyword">system fonts</span><span class="catalog-keyword">bright primary colors</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/tech-style.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="tech style" style="--card-accent:#2563eb;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#ffffff,#eff6ff);color:#0f172a;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#2563eb;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#27</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Tech Style</h2>
+    <p class="catalog-lead">A bold, minimalist-modern visual system combining clean aesthetics with dynamic execution. Features signature Electric Blue gradients, sophisticated dual-font pairing (Calistoga + Inter), animated hero graphics, inverted contrast sections, and micro-interactions throughout. Professional yet design-forwardâ€”confidence without clutter.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A bold</span><span class="catalog-keyword">minimalist-modern visual system combining clean aesthetics with dynamic execution</span><span class="catalog-keyword">Features signature Electric Blue gradients</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/hand-drawn-sketch.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="物理质感 / 设计史 / 材料感" data-category-search="物理质感 / 设计史 / 材料感" data-name="hand-drawn / sketch" style="--card-accent:#e85d04;">
+  <div class="catalog-preview" style="background:#faf8f0;color:#2d2d2d;font-family:'Patrick Hand',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#e85d04;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#28</span>
+      <span class="catalog-category">物理质感 / 设计史 / 材料感</span>
+    </div>
+    <h2 class="catalog-title">Hand-Drawn / Sketch</h2>
+    <p class="catalog-lead">Organic wobbly borders, handwritten typography, paper textures, and playful imperfection. Every element feels sketched with markers and pencils on textured paper.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">Organic wobbly borders</span><span class="catalog-keyword">handwritten typography</span><span class="catalog-keyword">paper textures</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/swiss.html" class="catalog-item" data-mode="light" data-font="sans-serif" data-category="编辑 / 排版 / 机构感" data-category-search="编辑 / 排版 / 机构感" data-name="swiss" style="--card-accent:#ff0000;">
+  <div class="catalog-preview" style="background:#ffffff;color:#000000;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#ff0000;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#29</span>
+      <span class="catalog-category">编辑 / 排版 / 机构感</span>
+    </div>
+    <h2 class="catalog-title">Swiss</h2>
+    <p class="catalog-lead">A rigorous implementation of the International Typographic Style (1950s). Characterized by objective typography, sans-serif fonts (Inter), mathematical grids with subtle texture patterns, and a strict black/white/red palette. Prioritizes readability, precision, asymmetrical organization, and visual depth through layered patterns.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-light">light</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A rigorous implementation of the International Typographic Style (1950s)</span><span class="catalog-keyword">Characterized by objective typography</span><span class="catalog-keyword">sans-serif fonts (Inter)</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/terminal-cli.html" class="catalog-item" data-mode="dark" data-font="mono" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="terminal cli" style="--card-accent:#00ff41;">
+  <div class="catalog-preview" style="background:#0c0c0c;color:#00ff41;font-family:'JetBrains Mono',monospace;">
+    <div class="catalog-preview-mark" style="color:#00ff41;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#30</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Terminal CLI</h2>
+    <p class="catalog-lead">A raw, functional, and retro-futuristic command-line interface aesthetic. High contrast, monospaced precision, and blinking cursors.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-mono">mono</span>
+      <span class="mini-badge catalog-sections">10 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A raw</span><span class="catalog-keyword">functional</span><span class="catalog-keyword">and retro-futuristic command-line interface aesthetic</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Features / How It Works</p>
+  </div>
+</a><a href="prompts/vaporwave.html" class="catalog-item" data-mode="dark" data-font="mono" data-category="强风格 / 年轻化 / 高情绪" data-category-search="强风格 / 年轻化 / 高情绪" data-name="vaporwave" style="--card-accent:#01cdfe;">
+  <div class="catalog-preview" style="background:linear-gradient(180deg,#1a0033,#330066,#1a0033);color:#ff71ce;font-family:'VT323',monospace;">
+    <div class="catalog-preview-mark" style="color:#01cdfe;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#31</span>
+      <span class="catalog-category">强风格 / 年轻化 / 高情绪</span>
+    </div>
+    <h2 class="catalog-title">Vaporwave</h2>
+    <p class="catalog-lead">A nostalgic, neon-drenched journey into 80s retro-futurism. High-contrast neon pinks and cyans against deep void purples. Digital grids, glowing horizons, surreal sunset gradients, and CRT scanline overlays create an immersive synthetic world.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-mono">mono</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A nostalgic</span><span class="catalog-keyword">neon-drenched journey into 80s retro-futurism</span><span class="catalog-keyword">High-contrast neon pinks and cyans against deep void purples</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a><a href="prompts/crypto.html" class="catalog-item" data-mode="dark" data-font="sans-serif" data-category="科技 / SaaS / 金融" data-category-search="科技 / saas / 金融" data-name="crypto" style="--card-accent:#f7931a;">
+  <div class="catalog-preview" style="background:linear-gradient(135deg,#0a0a0a,#1a1000);color:#e0e0e0;font-family:'Inter',sans-serif;">
+    <div class="catalog-preview-mark" style="color:#f7931a;">Aa</div>
+  </div>
+  <div class="catalog-body">
+    <div class="catalog-topline">
+      <span class="card-number">#32</span>
+      <span class="catalog-category">科技 / SaaS / 金融</span>
+    </div>
+    <h2 class="catalog-title">Crypto</h2>
+    <p class="catalog-lead">A bold, futuristic aesthetic inspired by Bitcoin and decentralized finance. Deep void backgrounds with Bitcoin orange accents, golden highlights, glowing elements, and precision data visualization.</p>
+    <div class="card-badges">
+      <span class="mini-badge mode-dark">dark</span>
+      <span class="mini-badge font-sansserif">sans-serif</span>
+      <span class="mini-badge catalog-sections">11 个区块</span>
+    </div>
+    <div class="catalog-keywords"><span class="catalog-keyword">A bold</span><span class="catalog-keyword">futuristic aesthetic inspired by Bitcoin and decentralized finance</span><span class="catalog-keyword">Deep void backgrounds with Bitcoin orange accents</span></div>
+    <p class="catalog-sections-line">Hero / Stats / Product Detail / Features</p>
+  </div>
+</a>
+      </main>
+
+      <div class="no-results" id="noResults" hidden>
+        <p>当前筛选条件下没有匹配的风格。</p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-branding">
+        <p class="footer-title">Design Prompts Collection</p>
+        <p class="footer-hint">版权所有 2026。保留所有权利。作者：gwzz。</p>
+      </div>
+      <div class="footer-meta">
+        <section class="footer-card">
+          <h3>隐私</h3>
+          <p>这是一个静态 Prompt 索引站，不需要登录，也不主动收集个人信息。</p>
+        </section>
+        <section class="footer-card">
+          <h3>联系</h3>
+          <p>如果你想反馈、更正内容或洽谈合作，可以联系 gwzz。</p>
+        </section>
+      </div>
+    </footer>
+  </div>
+  <script src="../assets/app.js" defer></script>
+</body>
+</html>
