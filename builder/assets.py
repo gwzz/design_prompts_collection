@@ -1,6 +1,187 @@
 """Static asset templates emitted by the site builder."""
 
 INDEX_SCRIPT = """const state = { mode: 'all', font: 'all', category: 'all' };
+const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
+const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
+const CLIENT_ID_KEY = 'dpc-client-id-v1';
+const SESSION_ID_KEY = 'dpc-session-id-v1';
+
+function readJsonScript(id, fallback) {
+  const element = document.getElementById(id);
+  if (!element) return fallback;
+  try {
+    return JSON.parse(element.textContent);
+  } catch (error) {
+    return fallback;
+  }
+}
+
+function readStorageMap(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function writeStorageMap(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function readLikedPrompts() {
+  try {
+    const raw = localStorage.getItem(LIKED_STORAGE_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (error) {
+    return new Set();
+  }
+}
+
+function randomId(prefix) {
+  return `${prefix}-${Math.random().toString(36).slice(2, 10)}${Date.now().toString(36)}`;
+}
+
+function getClientId() {
+  try {
+    const existing = localStorage.getItem(CLIENT_ID_KEY);
+    if (existing) return existing;
+    const next = randomId('client');
+    localStorage.setItem(CLIENT_ID_KEY, next);
+    return next;
+  } catch (error) {
+    return randomId('client');
+  }
+}
+
+function getSessionId() {
+  try {
+    const existing = sessionStorage.getItem(SESSION_ID_KEY);
+    if (existing) return existing;
+    const next = randomId('session');
+    sessionStorage.setItem(SESSION_ID_KEY, next);
+    return next;
+  } catch (error) {
+    return randomId('session');
+  }
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+const promptIndex = readJsonScript('prompt-index-data', []);
+const featuredStatsSeed = readJsonScript('featured-stats-data', { weights: { click: 1, like: 5 }, prompts: {} });
+const featuredUi = readJsonScript('featured-ui-data', {
+  clicksLabel: 'Clicks',
+  likesLabel: 'Likes',
+  scoreLabel: 'Score',
+  sourceTitle: 'Featured ranking',
+  sourceBody: 'Featured ranking blends clicks and likes.',
+  limit: 3,
+});
+const apiBase = document.body.dataset.apiBase || '../api';
+
+function getFallbackStats(slug) {
+  const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
+  const likedPrompts = readLikedPrompts();
+  const seeded = featuredStatsSeed.prompts[slug] || { click_count: 0, like_count: 0 };
+  const clickCount = seeded.click_count + (clickDeltas[slug] || 0);
+  const likeCount = seeded.like_count + (likedPrompts.has(slug) ? 1 : 0);
+  return {
+    click_count: clickCount,
+    like_count: likeCount,
+    score: clickCount * (featuredStatsSeed.weights.click || 1) + likeCount * (featuredStatsSeed.weights.like || 5),
+  };
+}
+
+function promptMap() {
+  return new Map(promptIndex.map((prompt) => [prompt.slug, prompt]));
+}
+
+function renderFeaturedFromItems(items) {
+  const root = document.getElementById('featuredList');
+  if (!root || !items.length) return;
+  const prompts = promptMap();
+  root.innerHTML = items
+    .map((item) => {
+      const prompt = prompts.get(item.slug);
+      if (!prompt) return '';
+      return `
+<a href="${escapeHtml(prompt.href)}" class="featured-link" data-featured-item data-track-click data-slug="${escapeHtml(prompt.slug)}" style="--card-accent:${escapeHtml(prompt.accent)};">
+  <span class="featured-index">#${String(prompt.number).padStart(2, '0')}</span>
+  <span class="featured-name">${escapeHtml(prompt.name)}</span>
+  <span class="featured-note">${escapeHtml(prompt.note)}</span>
+  <span class="featured-stats">
+    <span class="featured-stat"><strong data-stat-click-count>${item.click_count}</strong> ${escapeHtml(featuredUi.clicksLabel)}</span>
+    <span class="featured-stat"><strong data-stat-like-count>${item.like_count}</strong> ${escapeHtml(featuredUi.likesLabel)}</span>
+  </span>
+</a>`;
+    })
+    .join('');
+}
+
+function renderFeaturedFallback() {
+  const ranked = promptIndex
+    .map((prompt) => ({ ...prompt, ...getFallbackStats(prompt.slug) }))
+    .sort((left, right) => {
+      if (right.score !== left.score) return right.score - left.score;
+      if (right.like_count !== left.like_count) return right.like_count - left.like_count;
+      if (right.click_count !== left.click_count) return right.click_count - left.click_count;
+      return left.number - right.number;
+    })
+    .slice(0, featuredUi.limit || 3);
+  renderFeaturedFromItems(ranked);
+}
+
+async function refreshFeaturedFromApi() {
+  if (!promptIndex.length) return false;
+  try {
+    const response = await fetch(`${apiBase}/featured?limit=${featuredUi.limit || 3}`, {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+    });
+    if (!response.ok) return false;
+    const payload = await response.json();
+    if (!payload.items || !Array.isArray(payload.items)) return false;
+    renderFeaturedFromItems(payload.items);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function recordClickFallback(slug) {
+  if (!slug) return;
+  const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
+  clickDeltas[slug] = (clickDeltas[slug] || 0) + 1;
+  writeStorageMap(CLICK_STORAGE_KEY, clickDeltas);
+}
+
+async function trackClick(slug) {
+  if (!slug) return;
+  getClientId();
+  try {
+    await fetch(`${apiBase}/events/click`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, sessionId: getSessionId() }),
+      keepalive: true,
+    });
+  } catch (error) {
+    recordClickFallback(slug);
+    window.setTimeout(renderFeaturedFallback, 0);
+  }
+}
 
 function setActive(group, button) {
   group.querySelectorAll('[data-selectable]').forEach((item) => item.classList.remove('active'));
@@ -53,10 +234,136 @@ document.querySelectorAll('[data-locale-link]').forEach((link) => {
   });
 });
 
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('[data-track-click]');
+  if (!link) return;
+  trackClick(link.dataset.slug);
+});
+
 filterCards();
+renderFeaturedFallback();
+refreshFeaturedFromApi();
 """
 
-DETAIL_SCRIPT = """const copyButton = document.querySelector('[data-copy-target]');
+DETAIL_SCRIPT = """const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
+const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
+const CLIENT_ID_KEY = 'dpc-client-id-v1';
+const copyButton = document.querySelector('[data-copy-target]');
+const apiBase = document.body.dataset.apiBase || '../../api';
+
+function readJsonScript(id, fallback) {
+  const element = document.getElementById(id);
+  if (!element) return fallback;
+  try {
+    return JSON.parse(element.textContent);
+  } catch (error) {
+    return fallback;
+  }
+}
+
+function readStorageMap(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function writeStorageMap(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function readLikedPrompts() {
+  try {
+    const raw = localStorage.getItem(LIKED_STORAGE_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (error) {
+    return new Set();
+  }
+}
+
+function writeLikedPrompts(setValue) {
+  try {
+    localStorage.setItem(LIKED_STORAGE_KEY, JSON.stringify([...setValue]));
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function randomId(prefix) {
+  return `${prefix}-${Math.random().toString(36).slice(2, 10)}${Date.now().toString(36)}`;
+}
+
+function getClientId() {
+  try {
+    const existing = localStorage.getItem(CLIENT_ID_KEY);
+    if (existing) return existing;
+    const next = randomId('client');
+    localStorage.setItem(CLIENT_ID_KEY, next);
+    return next;
+  } catch (error) {
+    return randomId('client');
+  }
+}
+
+const featuredStatsSeed = readJsonScript('featured-stats-data', { weights: { click: 1, like: 5 }, prompts: {} });
+
+function getFallbackStats(slug) {
+  const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
+  const likedPrompts = readLikedPrompts();
+  const seeded = featuredStatsSeed.prompts[slug] || { click_count: 0, like_count: 0 };
+  const clickCount = seeded.click_count + (clickDeltas[slug] || 0);
+  const likeCount = seeded.like_count + (likedPrompts.has(slug) ? 1 : 0);
+  return {
+    click_count: clickCount,
+    like_count: likeCount,
+    score: clickCount * (featuredStatsSeed.weights.click || 1) + likeCount * (featuredStatsSeed.weights.like || 5),
+    liked: likedPrompts.has(slug),
+  };
+}
+
+function applyStats(stats) {
+  const clickTarget = document.querySelector('[data-stat-click-count]');
+  const likeTarget = document.querySelector('[data-stat-like-count]');
+  const scoreTarget = document.querySelector('[data-stat-score]');
+  if (clickTarget) clickTarget.textContent = stats.click_count;
+  if (likeTarget) likeTarget.textContent = stats.like_count;
+  if (scoreTarget) scoreTarget.textContent = stats.score;
+
+  const likeButton = document.querySelector('[data-like-button]');
+  if (!likeButton) return;
+  likeButton.textContent = stats.liked ? document.body.dataset.likedButtonLabel : document.body.dataset.likeButtonLabel;
+  likeButton.classList.toggle('active', stats.liked);
+  likeButton.setAttribute('aria-pressed', stats.liked ? 'true' : 'false');
+}
+
+function hydratePromptStatsFallback() {
+  const slug = document.body.dataset.promptSlug;
+  if (!slug) return;
+  applyStats(getFallbackStats(slug));
+}
+
+async function hydratePromptStatsFromApi() {
+  const slug = document.body.dataset.promptSlug;
+  if (!slug) return false;
+  try {
+    const response = await fetch(`${apiBase}/stats?slug=${encodeURIComponent(slug)}&clientId=${encodeURIComponent(getClientId())}`, {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+    });
+    if (!response.ok) return false;
+    const payload = await response.json();
+    applyStats(payload);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 if (copyButton) {
   copyButton.addEventListener('click', async () => {
@@ -79,6 +386,51 @@ if (copyButton) {
     }
   });
 }
+
+const likeButton = document.querySelector('[data-like-button]');
+
+async function toggleLikeViaApi(slug, nextLiked) {
+  const response = await fetch(`${apiBase}/events/like`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ slug, clientId: getClientId(), liked: nextLiked }),
+  });
+  if (!response.ok) {
+    throw new Error('Like request failed');
+  }
+  return response.json();
+}
+
+if (likeButton) {
+  likeButton.addEventListener('click', async () => {
+    const slug = likeButton.dataset.slug;
+    const likedPrompts = readLikedPrompts();
+    const nextLiked = !likedPrompts.has(slug);
+
+    try {
+      const payload = await toggleLikeViaApi(slug, nextLiked);
+      if (payload.liked) {
+        likedPrompts.add(slug);
+      } else {
+        likedPrompts.delete(slug);
+      }
+      writeLikedPrompts(likedPrompts);
+      applyStats(payload);
+      return;
+    } catch (error) {
+      if (nextLiked) {
+        likedPrompts.add(slug);
+      } else {
+        likedPrompts.delete(slug);
+      }
+      writeLikedPrompts(likedPrompts);
+      hydratePromptStatsFallback();
+    }
+  });
+}
+
+hydratePromptStatsFallback();
+hydratePromptStatsFromApi();
 """
 
 STYLESHEET = """:root {
@@ -302,6 +654,13 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-muted);
 }
 
+.hero-panel-copy {
+  margin: 0 0 4px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
 .featured-link {
   display: grid;
   gap: 6px;
@@ -329,6 +688,30 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-muted);
   line-height: 1.5;
   font-size: 0.92rem;
+}
+
+.featured-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.featured-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  color: #d8d9e6;
+  font-size: 0.74rem;
+}
+
+.featured-stat strong {
+  color: #fff;
+  font-weight: 700;
 }
 
 .quick-stats {
@@ -487,7 +870,8 @@ a { color: inherit; text-decoration: none; }
 
 .filter-btn,
 .cat-btn,
-.copy-btn {
+.copy-btn,
+.like-btn {
   min-height: 40px;
   padding: 0 14px;
   border-radius: 999px;
@@ -501,6 +885,7 @@ a { color: inherit; text-decoration: none; }
 .filter-btn:hover,
 .cat-btn:hover,
 .copy-btn:hover,
+.like-btn:hover,
 .back-link:hover {
   color: var(--text);
   border-color: rgba(255,255,255,0.26);
@@ -508,7 +893,8 @@ a { color: inherit; text-decoration: none; }
 
 .filter-btn.active,
 .cat-btn.active,
-.copy-btn.copied {
+.copy-btn.copied,
+.like-btn.active {
   background: var(--accent-soft);
   border-color: rgba(142,160,255,0.26);
   color: #e2e6ff;
@@ -724,6 +1110,33 @@ a { color: inherit; text-decoration: none; }
   gap: 18px;
 }
 
+.engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.engagement-card {
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+.engagement-card span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.engagement-card strong {
+  font-size: 1.4rem;
+  color: var(--text);
+}
+
 .section {
   padding: 24px;
 }
@@ -768,7 +1181,8 @@ a { color: inherit; text-decoration: none; }
   .detail-grid,
   .cards-grid,
   .site-footer,
-  .footer-meta {
+  .footer-meta,
+  .engagement-grid {
     grid-template-columns: 1fr;
   }
 

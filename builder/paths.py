@@ -7,6 +7,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT_DIR / "content"
 PROMPTS_CONTENT_DIR = CONTENT_DIR / "prompts"
 SITE_CONFIG_FILE = CONTENT_DIR / "site.json"
+FEATURED_STATS_FILE = CONTENT_DIR / "featured_stats.json"
 
 SITE_DIR = ROOT_DIR / "site"
 SITE_PROMPTS_DIR = SITE_DIR / "prompts"

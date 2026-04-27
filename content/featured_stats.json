@@ -1,0 +1,32 @@
+{
+  "weights": {
+    "click": 1,
+    "like": 5
+  },
+  "prompts": {
+    "academia": {
+      "click_count": 164,
+      "like_count": 28
+    },
+    "aurora-mesh": {
+      "click_count": 211,
+      "like_count": 34
+    },
+    "neo-brutalism": {
+      "click_count": 196,
+      "like_count": 39
+    },
+    "swiss": {
+      "click_count": 132,
+      "like_count": 24
+    },
+    "glassmorphism": {
+      "click_count": 178,
+      "like_count": 21
+    },
+    "terminal-cli": {
+      "click_count": 94,
+      "like_count": 17
+    }
+  }
+}

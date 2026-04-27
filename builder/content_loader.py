@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 
-from .paths import PROMPTS_CONTENT_DIR, SITE_CONFIG_FILE
+from .paths import FEATURED_STATS_FILE, PROMPTS_CONTENT_DIR, SITE_CONFIG_FILE
 from .themes import category_for_slug
 
 
@@ -15,6 +15,12 @@ def _read_json(path):
 
 def load_site_config() -> dict:
     return _read_json(SITE_CONFIG_FILE)
+
+
+def load_featured_stats() -> dict:
+    if not FEATURED_STATS_FILE.exists():
+        return {}
+    return _read_json(FEATURED_STATS_FILE)
 
 
 def _extract_lead(prompt_text: str) -> str:

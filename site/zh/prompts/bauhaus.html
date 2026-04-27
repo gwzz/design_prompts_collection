@@ -26,7 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Nunito:wght@400;700;900&family=Patrick+Hand&family=Playfair+Display:wght@400;700;900&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/styles.css">
 </head>
-<body data-copy-success="已复制" data-copy-failed="复制失败">
+<body data-copy-success="已复制" data-copy-failed="复制失败" data-clicks-label="点击" data-likes-label="点赞" data-score-label="热度" data-like-button-label="点赞这个 Prompt" data-liked-button-label="已点赞" data-prompt-slug="bauhaus" data-api-base="../../api">
   <main class="detail-page">
     <section class="masthead">
       <div class="masthead-inner">
@@ -58,6 +58,30 @@
 
     <section class="detail-grid">
       <aside class="detail-sidebar">
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">交互统计</h2>
+              <p class="section-copy">实时数据会通过统计 API 返回。如果 API 暂时不可用，页面会自动回退到当前浏览器里的 mock 数据。</p>
+            </div>
+            <button class="like-btn" type="button" data-like-button data-slug="bauhaus">点赞这个 Prompt</button>
+          </div>
+          <div class="engagement-grid">
+            <article class="engagement-card">
+              <span>点击</span>
+              <strong data-stat-click-count>0</strong>
+            </article>
+            <article class="engagement-card">
+              <span>点赞</span>
+              <strong data-stat-like-count>0</strong>
+            </article>
+            <article class="engagement-card">
+              <span>热度</span>
+              <strong data-stat-score>0</strong>
+            </article>
+          </div>
+        </section>
+
         <section class="section">
           <div class="section-head">
             <div>
@@ -168,6 +192,7 @@ Dark background (near-black #121212) with geometric logo. Multi-column layout wi
       </div>
     </section>
   </main>
+  <script id="featured-stats-data" type="application/json">{"weights":{"click":1,"like":5},"prompts":{"academia":{"click_count":164,"like_count":28,"score":304},"art-deco":{"click_count":0,"like_count":0,"score":0},"aurora-mesh":{"click_count":211,"like_count":34,"score":381},"bauhaus":{"click_count":0,"like_count":0,"score":0},"bold-typography":{"click_count":0,"like_count":0,"score":0},"botanical-organic-serif":{"click_count":0,"like_count":0,"score":0},"clay":{"click_count":0,"like_count":0,"score":0},"cyberpunk":{"click_count":0,"like_count":0,"score":0},"corporate-trust":{"click_count":0,"like_count":0,"score":0},"flat-design":{"click_count":0,"like_count":0,"score":0},"glassmorphism":{"click_count":178,"like_count":21,"score":283},"industrial":{"click_count":0,"like_count":0,"score":0},"kinetic":{"click_count":0,"like_count":0,"score":0},"luxury":{"click_count":0,"like_count":0,"score":0},"material":{"click_count":0,"like_count":0,"score":0},"maximalism":{"click_count":0,"like_count":0,"score":0},"simple-dark":{"click_count":0,"like_count":0,"score":0},"modern-dark":{"click_count":0,"like_count":0,"score":0},"monochrome":{"click_count":0,"like_count":0,"score":0},"neo-brutalism":{"click_count":196,"like_count":39,"score":391},"neumorphism":{"click_count":0,"like_count":0,"score":0},"newsprint":{"click_count":0,"like_count":0,"score":0},"organic-natural":{"click_count":0,"like_count":0,"score":0},"playful-geometric":{"click_count":0,"like_count":0,"score":0},"business-style":{"click_count":0,"like_count":0,"score":0},"retro":{"click_count":0,"like_count":0,"score":0},"tech-style":{"click_count":0,"like_count":0,"score":0},"hand-drawn-sketch":{"click_count":0,"like_count":0,"score":0},"swiss":{"click_count":132,"like_count":24,"score":252},"terminal-cli":{"click_count":94,"like_count":17,"score":179},"vaporwave":{"click_count":0,"like_count":0,"score":0},"crypto":{"click_count":0,"like_count":0,"score":0}}}</script>
   <script src="../../assets/detail.js" defer></script>
 </body>
 </html>

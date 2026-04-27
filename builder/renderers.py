@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import json
 from html import escape
 
+from .featured_stats import ranked_featured_prompts
 from .themes import get_theme
 
 
@@ -41,6 +43,11 @@ def relative_asset_href(current_slug: str | None = None, *, filename: str) -> st
 
 def absolute_locale_url(site_url: str, locale: str, slug: str | None = None) -> str:
     return site_url.rstrip("/") + locale_path(locale, slug)
+
+
+def json_script_tag(element_id: str, payload: object) -> str:
+    json_text = json.dumps(payload, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
+    return f'<script id="{element_id}" type="application/json">{json_text}</script>'
 
 
 def language_switcher(current_locale: str, slug: str | None, ui: dict) -> str:
@@ -176,13 +183,15 @@ def generate_root_router(site_config: dict) -> str:
 </html>"""
 
 
-def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str) -> str:
+def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str, featured_stats: dict) -> str:
     locale_config = site_config["locales"][locale_code]
     ui = locale_config["ui"]
     featured_slugs = site_config.get("featured_prompt_slugs", [])
-    featured_prompts = [prompt for prompt in prompts if prompt["slug"] in featured_slugs][:3] or prompts[:3]
+    featured_prompts = ranked_featured_prompts(prompts, featured_stats, featured_slugs, limit=3)
+    stats_by_slug = featured_stats["prompts"]
     total_sections = sum(len(prompt["layout_sections"]) for prompt in prompts)
     cards = []
+    prompt_index_data = []
 
     for prompt in prompts:
         theme = get_theme(prompt["slug"])
@@ -190,8 +199,22 @@ def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str
         keyword_badges = "".join(f'<span class="catalog-keyword">{escape(keyword)}</span>' for keyword in prompt["keywords"])
         section_preview = " / ".join(prompt["layout_sections"][:4])
         sections_label = f"{len(prompt['layout_sections'])} {ui['detail']['sections_suffix']}"
+        prompt_stats = stats_by_slug[prompt["slug"]]
+        prompt_index_data.append(
+            {
+                "slug": prompt["slug"],
+                "number": prompt["number"],
+                "name": prompt["name"],
+                "note": prompt["lead"] or summarize_description(prompt["description"], 72),
+                "href": f"prompts/{prompt['slug']}.html",
+                "accent": theme["accent"],
+                "click_count": prompt_stats["click_count"],
+                "like_count": prompt_stats["like_count"],
+                "score": prompt_stats["score"],
+            }
+        )
         cards.append(
-            f"""<a href="prompts/{prompt['slug']}.html" class="catalog-item" data-mode="{escape(prompt['mode'])}" data-font="{escape(prompt['font'])}" data-category="{escape(category_label)}" data-category-search="{escape(category_label.lower())}" data-name="{escape(prompt['name'].lower())}" style="--card-accent:{theme['accent']};">
+            f"""<a href="prompts/{prompt['slug']}.html" class="catalog-item" data-track-click data-slug="{escape(prompt['slug'])}" data-mode="{escape(prompt['mode'])}" data-font="{escape(prompt['font'])}" data-category="{escape(category_label)}" data-category-search="{escape(category_label.lower())}" data-name="{escape(prompt['name'].lower())}" style="--card-accent:{theme['accent']};">
   <div class="catalog-preview" style="background:{theme['hero_bg']};color:{theme['text']};font-family:{theme['font']};">
     <div class="catalog-preview-mark" style="color:{theme['accent']};">Aa</div>
   </div>
@@ -221,11 +244,16 @@ def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str
     featured_markup = []
     for prompt in featured_prompts:
         theme = get_theme(prompt["slug"])
+        prompt_stats = stats_by_slug[prompt["slug"]]
         featured_markup.append(
-            f"""<a href="prompts/{prompt['slug']}.html" class="featured-link" style="--card-accent:{theme['accent']};">
+            f"""<a href="prompts/{prompt['slug']}.html" class="featured-link" data-featured-item data-track-click data-slug="{escape(prompt['slug'])}" style="--card-accent:{theme['accent']};">
   <span class="featured-index">#{prompt['number']:02d}</span>
   <span class="featured-name">{escape(prompt['name'])}</span>
   <span class="featured-note">{escape(prompt['lead'] or summarize_description(prompt['description'], 72))}</span>
+  <span class="featured-stats">
+    <span class="featured-stat"><strong data-stat-click-count>{prompt_stats['click_count']}</strong> {escape(ui['featured']['clicks_label'])}</span>
+    <span class="featured-stat"><strong data-stat-like-count>{prompt_stats['like_count']}</strong> {escape(ui['featured']['likes_label'])}</span>
+  </span>
 </a>"""
         )
 
@@ -241,13 +269,21 @@ def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str
     )
 
     language_markup = language_switcher(locale_code, None, ui)
+    featured_ui_payload = {
+        "clicksLabel": ui["featured"]["clicks_label"],
+        "likesLabel": ui["featured"]["likes_label"],
+        "scoreLabel": ui["featured"]["score_label"],
+        "sourceTitle": ui["featured"]["source_title"],
+        "sourceBody": ui["featured"]["source_body"],
+        "limit": 3,
+    }
 
     return f"""<!DOCTYPE html>
 <html lang="{escape(locale_config['lang'])}">
 <head>
 {head}
 </head>
-<body data-results-suffix="{escape(ui['results_suffix'])}">
+<body data-results-suffix="{escape(ui['results_suffix'])}" data-api-base="../api">
   <div class="page-shell">
     <section class="masthead">
       <div class="masthead-inner">
@@ -274,7 +310,10 @@ def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str
         </div>
         <aside class="hero-panel" id="featured">
           <div class="hero-panel-label">{escape(ui["featured_label"])}</div>
-          {"".join(featured_markup)}
+          <p class="hero-panel-copy">{escape(ui['featured']['source_body'])}</p>
+          <div id="featuredList">
+            {"".join(featured_markup)}
+          </div>
         </aside>
       </div>
     </section>
@@ -364,16 +403,20 @@ def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str
       </div>
     </footer>
   </div>
+  {json_script_tag("prompt-index-data", prompt_index_data)}
+  {json_script_tag("featured-stats-data", featured_stats)}
+  {json_script_tag("featured-ui-data", featured_ui_payload)}
   <script src="{relative_asset_href(filename='app.js')}" defer></script>
 </body>
 </html>"""
 
 
-def generate_detail_page(prompt: dict, site_config: dict, locale_code: str) -> str:
+def generate_detail_page(prompt: dict, site_config: dict, locale_code: str, featured_stats: dict) -> str:
     locale_config = site_config["locales"][locale_code]
     ui = locale_config["ui"]
     category_label = localized_category(prompt, locale_config)
     use_case = localized_use_case(prompt, locale_config)
+    prompt_stats = featured_stats["prompts"][prompt["slug"]]
 
     mode_badge_bg = "#1e293b" if prompt["mode"] == "dark" else "#f1f5f9"
     mode_badge_color = "#cbd5e1" if prompt["mode"] == "dark" else "#334155"
@@ -404,7 +447,7 @@ def generate_detail_page(prompt: dict, site_config: dict, locale_code: str) -> s
 <head>
 {head}
 </head>
-<body data-copy-success="{escape(ui['detail'].get('copy_success', 'Copied'))}" data-copy-failed="{escape(ui['detail'].get('copy_failed', 'Copy failed'))}">
+<body data-copy-success="{escape(ui['detail'].get('copy_success', 'Copied'))}" data-copy-failed="{escape(ui['detail'].get('copy_failed', 'Copy failed'))}" data-clicks-label="{escape(ui['detail']['clicks_label'])}" data-likes-label="{escape(ui['detail']['likes_label'])}" data-score-label="{escape(ui['detail']['score_label'])}" data-like-button-label="{escape(ui['detail']['like_button'])}" data-liked-button-label="{escape(ui['detail']['liked_button'])}" data-prompt-slug="{escape(prompt['slug'])}" data-api-base="../../api">
   <main class="detail-page">
     <section class="masthead">
       <div class="masthead-inner">
@@ -434,6 +477,30 @@ def generate_detail_page(prompt: dict, site_config: dict, locale_code: str) -> s
 
     <section class="detail-grid">
       <aside class="detail-sidebar">
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">{escape(ui['detail']['analytics_title'])}</h2>
+              <p class="section-copy">{escape(ui['detail']['analytics_copy'])}</p>
+            </div>
+            <button class="like-btn" type="button" data-like-button data-slug="{escape(prompt['slug'])}">{escape(ui['detail']['like_button'])}</button>
+          </div>
+          <div class="engagement-grid">
+            <article class="engagement-card">
+              <span>{escape(ui['detail']['clicks_label'])}</span>
+              <strong data-stat-click-count>{prompt_stats['click_count']}</strong>
+            </article>
+            <article class="engagement-card">
+              <span>{escape(ui['detail']['likes_label'])}</span>
+              <strong data-stat-like-count>{prompt_stats['like_count']}</strong>
+            </article>
+            <article class="engagement-card">
+              <span>{escape(ui['detail']['score_label'])}</span>
+              <strong data-stat-score>{prompt_stats['score']}</strong>
+            </article>
+          </div>
+        </section>
+
         <section class="section">
           <div class="section-head">
             <div>
@@ -479,6 +546,7 @@ def generate_detail_page(prompt: dict, site_config: dict, locale_code: str) -> s
       </div>
     </section>
   </main>
+  {json_script_tag("featured-stats-data", featured_stats)}
   <script src="{relative_asset_href(prompt['slug'], filename='detail.js')}" defer></script>
 </body>
 </html>"""

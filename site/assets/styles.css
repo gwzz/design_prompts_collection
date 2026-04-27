@@ -219,6 +219,13 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-muted);
 }
 
+.hero-panel-copy {
+  margin: 0 0 4px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
 .featured-link {
   display: grid;
   gap: 6px;
@@ -246,6 +253,30 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-muted);
   line-height: 1.5;
   font-size: 0.92rem;
+}
+
+.featured-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.featured-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  color: #d8d9e6;
+  font-size: 0.74rem;
+}
+
+.featured-stat strong {
+  color: #fff;
+  font-weight: 700;
 }
 
 .quick-stats {
@@ -404,7 +435,8 @@ a { color: inherit; text-decoration: none; }
 
 .filter-btn,
 .cat-btn,
-.copy-btn {
+.copy-btn,
+.like-btn {
   min-height: 40px;
   padding: 0 14px;
   border-radius: 999px;
@@ -418,6 +450,7 @@ a { color: inherit; text-decoration: none; }
 .filter-btn:hover,
 .cat-btn:hover,
 .copy-btn:hover,
+.like-btn:hover,
 .back-link:hover {
   color: var(--text);
   border-color: rgba(255,255,255,0.26);
@@ -425,7 +458,8 @@ a { color: inherit; text-decoration: none; }
 
 .filter-btn.active,
 .cat-btn.active,
-.copy-btn.copied {
+.copy-btn.copied,
+.like-btn.active {
   background: var(--accent-soft);
   border-color: rgba(142,160,255,0.26);
   color: #e2e6ff;
@@ -641,6 +675,33 @@ a { color: inherit; text-decoration: none; }
   gap: 18px;
 }
 
+.engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.engagement-card {
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+.engagement-card span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.engagement-card strong {
+  font-size: 1.4rem;
+  color: var(--text);
+}
+
 .section {
   padding: 24px;
 }
@@ -685,7 +746,8 @@ a { color: inherit; text-decoration: none; }
   .detail-grid,
   .cards-grid,
   .site-footer,
-  .footer-meta {
+  .footer-meta,
+  .engagement-grid {
     grid-template-columns: 1fr;
   }
 

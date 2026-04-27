@@ -1,4 +1,185 @@
 const state = { mode: 'all', font: 'all', category: 'all' };
+const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
+const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
+const CLIENT_ID_KEY = 'dpc-client-id-v1';
+const SESSION_ID_KEY = 'dpc-session-id-v1';
+
+function readJsonScript(id, fallback) {
+  const element = document.getElementById(id);
+  if (!element) return fallback;
+  try {
+    return JSON.parse(element.textContent);
+  } catch (error) {
+    return fallback;
+  }
+}
+
+function readStorageMap(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function writeStorageMap(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function readLikedPrompts() {
+  try {
+    const raw = localStorage.getItem(LIKED_STORAGE_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (error) {
+    return new Set();
+  }
+}
+
+function randomId(prefix) {
+  return `${prefix}-${Math.random().toString(36).slice(2, 10)}${Date.now().toString(36)}`;
+}
+
+function getClientId() {
+  try {
+    const existing = localStorage.getItem(CLIENT_ID_KEY);
+    if (existing) return existing;
+    const next = randomId('client');
+    localStorage.setItem(CLIENT_ID_KEY, next);
+    return next;
+  } catch (error) {
+    return randomId('client');
+  }
+}
+
+function getSessionId() {
+  try {
+    const existing = sessionStorage.getItem(SESSION_ID_KEY);
+    if (existing) return existing;
+    const next = randomId('session');
+    sessionStorage.setItem(SESSION_ID_KEY, next);
+    return next;
+  } catch (error) {
+    return randomId('session');
+  }
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+const promptIndex = readJsonScript('prompt-index-data', []);
+const featuredStatsSeed = readJsonScript('featured-stats-data', { weights: { click: 1, like: 5 }, prompts: {} });
+const featuredUi = readJsonScript('featured-ui-data', {
+  clicksLabel: 'Clicks',
+  likesLabel: 'Likes',
+  scoreLabel: 'Score',
+  sourceTitle: 'Featured ranking',
+  sourceBody: 'Featured ranking blends clicks and likes.',
+  limit: 3,
+});
+const apiBase = document.body.dataset.apiBase || '../api';
+
+function getFallbackStats(slug) {
+  const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
+  const likedPrompts = readLikedPrompts();
+  const seeded = featuredStatsSeed.prompts[slug] || { click_count: 0, like_count: 0 };
+  const clickCount = seeded.click_count + (clickDeltas[slug] || 0);
+  const likeCount = seeded.like_count + (likedPrompts.has(slug) ? 1 : 0);
+  return {
+    click_count: clickCount,
+    like_count: likeCount,
+    score: clickCount * (featuredStatsSeed.weights.click || 1) + likeCount * (featuredStatsSeed.weights.like || 5),
+  };
+}
+
+function promptMap() {
+  return new Map(promptIndex.map((prompt) => [prompt.slug, prompt]));
+}
+
+function renderFeaturedFromItems(items) {
+  const root = document.getElementById('featuredList');
+  if (!root || !items.length) return;
+  const prompts = promptMap();
+  root.innerHTML = items
+    .map((item) => {
+      const prompt = prompts.get(item.slug);
+      if (!prompt) return '';
+      return `
+<a href="${escapeHtml(prompt.href)}" class="featured-link" data-featured-item data-track-click data-slug="${escapeHtml(prompt.slug)}" style="--card-accent:${escapeHtml(prompt.accent)};">
+  <span class="featured-index">#${String(prompt.number).padStart(2, '0')}</span>
+  <span class="featured-name">${escapeHtml(prompt.name)}</span>
+  <span class="featured-note">${escapeHtml(prompt.note)}</span>
+  <span class="featured-stats">
+    <span class="featured-stat"><strong data-stat-click-count>${item.click_count}</strong> ${escapeHtml(featuredUi.clicksLabel)}</span>
+    <span class="featured-stat"><strong data-stat-like-count>${item.like_count}</strong> ${escapeHtml(featuredUi.likesLabel)}</span>
+  </span>
+</a>`;
+    })
+    .join('');
+}
+
+function renderFeaturedFallback() {
+  const ranked = promptIndex
+    .map((prompt) => ({ ...prompt, ...getFallbackStats(prompt.slug) }))
+    .sort((left, right) => {
+      if (right.score !== left.score) return right.score - left.score;
+      if (right.like_count !== left.like_count) return right.like_count - left.like_count;
+      if (right.click_count !== left.click_count) return right.click_count - left.click_count;
+      return left.number - right.number;
+    })
+    .slice(0, featuredUi.limit || 3);
+  renderFeaturedFromItems(ranked);
+}
+
+async function refreshFeaturedFromApi() {
+  if (!promptIndex.length) return false;
+  try {
+    const response = await fetch(`${apiBase}/featured?limit=${featuredUi.limit || 3}`, {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+    });
+    if (!response.ok) return false;
+    const payload = await response.json();
+    if (!payload.items || !Array.isArray(payload.items)) return false;
+    renderFeaturedFromItems(payload.items);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function recordClickFallback(slug) {
+  if (!slug) return;
+  const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
+  clickDeltas[slug] = (clickDeltas[slug] || 0) + 1;
+  writeStorageMap(CLICK_STORAGE_KEY, clickDeltas);
+}
+
+async function trackClick(slug) {
+  if (!slug) return;
+  getClientId();
+  try {
+    await fetch(`${apiBase}/events/click`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, sessionId: getSessionId() }),
+      keepalive: true,
+    });
+  } catch (error) {
+    recordClickFallback(slug);
+    window.setTimeout(renderFeaturedFallback, 0);
+  }
+}
 
 function setActive(group, button) {
   group.querySelectorAll('[data-selectable]').forEach((item) => item.classList.remove('active'));
@@ -51,4 +232,12 @@ document.querySelectorAll('[data-locale-link]').forEach((link) => {
   });
 });
 
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('[data-track-click]');
+  if (!link) return;
+  trackClick(link.dataset.slug);
+});
+
 filterCards();
+renderFeaturedFallback();
+refreshFeaturedFromApi();
