@@ -3,8 +3,6 @@
 INDEX_SCRIPT = """const state = { mode: 'all', font: 'all', category: 'all' };
 const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
 const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
-const CLIENT_ID_KEY = 'dpc-client-id-v1';
-const SESSION_ID_KEY = 'dpc-session-id-v1';
 
 function readJsonScript(id, fallback) {
   const element = document.getElementById(id);
@@ -39,34 +37,6 @@ function readLikedPrompts() {
     return new Set(raw ? JSON.parse(raw) : []);
   } catch (error) {
     return new Set();
-  }
-}
-
-function randomId(prefix) {
-  return `${prefix}-${Math.random().toString(36).slice(2, 10)}${Date.now().toString(36)}`;
-}
-
-function getClientId() {
-  try {
-    const existing = localStorage.getItem(CLIENT_ID_KEY);
-    if (existing) return existing;
-    const next = randomId('client');
-    localStorage.setItem(CLIENT_ID_KEY, next);
-    return next;
-  } catch (error) {
-    return randomId('client');
-  }
-}
-
-function getSessionId() {
-  try {
-    const existing = sessionStorage.getItem(SESSION_ID_KEY);
-    if (existing) return existing;
-    const next = randomId('session');
-    sessionStorage.setItem(SESSION_ID_KEY, next);
-    return next;
-  } catch (error) {
-    return randomId('session');
   }
 }
 
@@ -160,29 +130,6 @@ async function refreshFeaturedFromApi() {
   }
 }
 
-function recordClickFallback(slug) {
-  if (!slug) return;
-  const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
-  clickDeltas[slug] = (clickDeltas[slug] || 0) + 1;
-  writeStorageMap(CLICK_STORAGE_KEY, clickDeltas);
-}
-
-async function trackClick(slug) {
-  if (!slug) return;
-  getClientId();
-  try {
-    await fetch(`${apiBase}/events/click`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug, sessionId: getSessionId() }),
-      keepalive: true,
-    });
-  } catch (error) {
-    recordClickFallback(slug);
-    window.setTimeout(renderFeaturedFallback, 0);
-  }
-}
-
 function setActive(group, button) {
   group.querySelectorAll('[data-selectable]').forEach((item) => item.classList.remove('active'));
   button.classList.add('active');
@@ -234,12 +181,6 @@ document.querySelectorAll('[data-locale-link]').forEach((link) => {
   });
 });
 
-document.addEventListener('click', (event) => {
-  const link = event.target.closest('[data-track-click]');
-  if (!link) return;
-  trackClick(link.dataset.slug);
-});
-
 filterCards();
 renderFeaturedFallback();
 refreshFeaturedFromApi();
@@ -248,6 +189,8 @@ refreshFeaturedFromApi();
 DETAIL_SCRIPT = """const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
 const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
 const CLIENT_ID_KEY = 'dpc-client-id-v1';
+const SESSION_ID_KEY = 'dpc-session-id-v1';
+const LOCAL_CLICK_MARKS_KEY = 'dpc-local-click-marks-v1';
 const copyButton = document.querySelector('[data-copy-target]');
 const apiBase = document.body.dataset.apiBase || '../../api';
 
@@ -311,6 +254,18 @@ function getClientId() {
   }
 }
 
+function getSessionId() {
+  try {
+    const existing = sessionStorage.getItem(SESSION_ID_KEY);
+    if (existing) return existing;
+    const next = randomId('session');
+    sessionStorage.setItem(SESSION_ID_KEY, next);
+    return next;
+  } catch (error) {
+    return randomId('session');
+  }
+}
+
 const featuredStatsSeed = readJsonScript('featured-stats-data', { weights: { click: 1, like: 5 }, prompts: {} });
 
 function getFallbackStats(slug) {
@@ -325,6 +280,35 @@ function getFallbackStats(slug) {
     score: clickCount * (featuredStatsSeed.weights.click || 1) + likeCount * (featuredStatsSeed.weights.like || 5),
     liked: likedPrompts.has(slug),
   };
+}
+
+function hasLocalClickMark(slug) {
+  try {
+    const raw = sessionStorage.getItem(LOCAL_CLICK_MARKS_KEY);
+    const marks = raw ? JSON.parse(raw) : {};
+    return Boolean(marks[slug]);
+  } catch (error) {
+    return false;
+  }
+}
+
+function setLocalClickMark(slug) {
+  try {
+    const raw = sessionStorage.getItem(LOCAL_CLICK_MARKS_KEY);
+    const marks = raw ? JSON.parse(raw) : {};
+    marks[slug] = true;
+    sessionStorage.setItem(LOCAL_CLICK_MARKS_KEY, JSON.stringify(marks));
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function recordClickFallback(slug) {
+  if (!slug || hasLocalClickMark(slug)) return;
+  const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
+  clickDeltas[slug] = (clickDeltas[slug] || 0) + 1;
+  writeStorageMap(CLICK_STORAGE_KEY, clickDeltas);
+  setLocalClickMark(slug);
 }
 
 function applyStats(stats) {
@@ -361,6 +345,29 @@ async function hydratePromptStatsFromApi() {
     applyStats(payload);
     return true;
   } catch (error) {
+    return false;
+  }
+}
+
+async function trackPromptView() {
+  const slug = document.body.dataset.promptSlug;
+  if (!slug) return false;
+  try {
+    const response = await fetch(`${apiBase}/events/click`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, sessionId: getSessionId() }),
+      keepalive: true,
+    });
+    if (!response.ok) {
+      throw new Error('Click request failed');
+    }
+    const payload = await response.json();
+    applyStats({ ...payload, liked: readLikedPrompts().has(slug) });
+    return true;
+  } catch (error) {
+    recordClickFallback(slug);
+    hydratePromptStatsFallback();
     return false;
   }
 }
@@ -430,6 +437,7 @@ if (likeButton) {
 }
 
 hydratePromptStatsFallback();
+trackPromptView();
 hydratePromptStatsFromApi();
 """
 

@@ -1,8 +1,6 @@
 const state = { mode: 'all', font: 'all', category: 'all' };
 const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
 const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
-const CLIENT_ID_KEY = 'dpc-client-id-v1';
-const SESSION_ID_KEY = 'dpc-session-id-v1';
 
 function readJsonScript(id, fallback) {
   const element = document.getElementById(id);
@@ -37,34 +35,6 @@ function readLikedPrompts() {
     return new Set(raw ? JSON.parse(raw) : []);
   } catch (error) {
     return new Set();
-  }
-}
-
-function randomId(prefix) {
-  return `${prefix}-${Math.random().toString(36).slice(2, 10)}${Date.now().toString(36)}`;
-}
-
-function getClientId() {
-  try {
-    const existing = localStorage.getItem(CLIENT_ID_KEY);
-    if (existing) return existing;
-    const next = randomId('client');
-    localStorage.setItem(CLIENT_ID_KEY, next);
-    return next;
-  } catch (error) {
-    return randomId('client');
-  }
-}
-
-function getSessionId() {
-  try {
-    const existing = sessionStorage.getItem(SESSION_ID_KEY);
-    if (existing) return existing;
-    const next = randomId('session');
-    sessionStorage.setItem(SESSION_ID_KEY, next);
-    return next;
-  } catch (error) {
-    return randomId('session');
   }
 }
 
@@ -158,29 +128,6 @@ async function refreshFeaturedFromApi() {
   }
 }
 
-function recordClickFallback(slug) {
-  if (!slug) return;
-  const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
-  clickDeltas[slug] = (clickDeltas[slug] || 0) + 1;
-  writeStorageMap(CLICK_STORAGE_KEY, clickDeltas);
-}
-
-async function trackClick(slug) {
-  if (!slug) return;
-  getClientId();
-  try {
-    await fetch(`${apiBase}/events/click`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug, sessionId: getSessionId() }),
-      keepalive: true,
-    });
-  } catch (error) {
-    recordClickFallback(slug);
-    window.setTimeout(renderFeaturedFallback, 0);
-  }
-}
-
 function setActive(group, button) {
   group.querySelectorAll('[data-selectable]').forEach((item) => item.classList.remove('active'));
   button.classList.add('active');
@@ -230,12 +177,6 @@ document.querySelectorAll('[data-locale-link]').forEach((link) => {
       // Ignore storage failures.
     }
   });
-});
-
-document.addEventListener('click', (event) => {
-  const link = event.target.closest('[data-track-click]');
-  if (!link) return;
-  trackClick(link.dataset.slug);
 });
 
 filterCards();
