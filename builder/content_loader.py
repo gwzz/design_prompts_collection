@@ -6,7 +6,7 @@ import json
 import re
 
 from .paths import FEATURED_STATS_FILE, PROMPTS_CONTENT_DIR, SITE_CONFIG_FILE
-from .themes import category_for_slug
+from .themes import category_for_slug, tag_keys_for_slug
 
 
 def _read_json(path):
@@ -49,6 +49,7 @@ def load_prompts() -> list[dict]:
             continue
         prompt = _read_json(prompt_file)
         prompt["category_key"] = category_for_slug(prompt["slug"])
+        prompt["tag_keys"] = tag_keys_for_slug(prompt["slug"])
         prompt["lead"] = _extract_lead(prompt["prompt"])
         prompt["layout_sections"] = _extract_sections(prompt["prompt"])
         prompt["keywords"] = _derive_keywords(prompt["lead"])

@@ -1,4 +1,4 @@
-const state = { mode: 'all', font: 'all', category: 'all' };
+const state = { mode: 'all', font: 'all', category: 'all', tag: 'all' };
 const THEME_STORAGE_KEY = 'dpc-theme-v1';
 const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
 const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
@@ -161,6 +161,7 @@ function filterCards() {
     const matchesMode = state.mode === 'all' || card.dataset.mode === state.mode;
     const matchesFont = state.font === 'all' || card.dataset.font === state.font;
     const matchesCategory = state.category === 'all' || card.dataset.category === state.category;
+    const matchesTag = state.tag === 'all' || (card.dataset.tags || '').split(' ').includes(state.tag);
     const matchesSearch =
       !search ||
       card.dataset.name.includes(search) ||
@@ -170,7 +171,7 @@ function filterCards() {
       (card.dataset.keywords || '').includes(search) ||
       card.textContent.toLowerCase().includes(search);
 
-    const isVisible = matchesMode && matchesFont && matchesCategory && matchesSearch;
+    const isVisible = matchesMode && matchesFont && matchesCategory && matchesTag && matchesSearch;
     card.hidden = !isVisible;
     if (isVisible) visible += 1;
   });
@@ -198,25 +199,26 @@ document.querySelectorAll('[data-topic-category]').forEach((button) => {
   button.addEventListener('click', () => {
     const searchInput = document.getElementById('searchInput');
     if (searchInput) searchInput.value = '';
-    document.querySelectorAll('[data-topic-search]').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('[data-topic-tag]').forEach((item) => item.classList.remove('active'));
     document.querySelectorAll('[data-topic-category]').forEach((item) => item.classList.remove('active'));
     button.classList.add('active');
     state.category = button.dataset.topicCategory;
+    state.tag = 'all';
     filterCards();
   });
 });
 
-document.querySelectorAll('[data-topic-search]').forEach((button) => {
+document.querySelectorAll('[data-topic-tag]').forEach((button) => {
   button.addEventListener('click', () => {
     const searchInput = document.getElementById('searchInput');
-    if (!searchInput) return;
+    if (searchInput) searchInput.value = '';
     const allCategoryButton = document.querySelector('[data-topic-category="all"]');
     document.querySelectorAll('[data-topic-category]').forEach((item) => item.classList.remove('active'));
     if (allCategoryButton) allCategoryButton.classList.add('active');
-    document.querySelectorAll('[data-topic-search]').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('[data-topic-tag]').forEach((item) => item.classList.remove('active'));
     button.classList.add('active');
     state.category = 'all';
-    searchInput.value = button.dataset.topicSearch;
+    state.tag = button.dataset.topicTag;
     filterCards();
   });
 });
@@ -234,7 +236,8 @@ document.querySelectorAll('[data-locale-link]').forEach((link) => {
 const searchInput = document.getElementById('searchInput');
 if (searchInput) {
   searchInput.addEventListener('input', () => {
-    document.querySelectorAll('[data-topic-search]').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('[data-topic-tag]').forEach((item) => item.classList.remove('active'));
+    state.tag = 'all';
     filterCards();
   });
   document.addEventListener('keydown', (event) => {

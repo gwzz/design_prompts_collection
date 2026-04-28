@@ -87,6 +87,63 @@ CATEGORY_GROUPS = {
     },
 }
 
+TAG_KEYS = [
+    "saas_product",
+    "fintech_data",
+    "devtools_terminal",
+    "editorial_publishing",
+    "luxury_heritage",
+    "typography_grid",
+    "geometric_modernist",
+    "minimalist_flat",
+    "dark_premium",
+    "glass_gradient",
+    "tactile_material",
+    "organic_nature",
+    "playful_3d",
+    "expressive_campaign",
+    "retro_nostalgia",
+    "cyber_neon",
+    "motion_kinetic",
+    "brutalist_poster",
+    "system_design",
+]
+
+PROMPT_TAGS = {
+    "academia": ["editorial_publishing", "luxury_heritage", "typography_grid"],
+    "art-deco": ["luxury_heritage", "geometric_modernist", "editorial_publishing"],
+    "aurora-mesh": ["saas_product", "glass_gradient", "dark_premium"],
+    "bauhaus": ["geometric_modernist", "typography_grid", "expressive_campaign"],
+    "bold-typography": ["typography_grid", "brutalist_poster", "editorial_publishing"],
+    "botanical-organic-serif": ["organic_nature", "luxury_heritage", "editorial_publishing"],
+    "business-style": ["editorial_publishing", "luxury_heritage", "typography_grid"],
+    "clay": ["playful_3d", "tactile_material", "expressive_campaign"],
+    "corporate-trust": ["saas_product", "system_design", "glass_gradient"],
+    "crypto": ["fintech_data", "dark_premium", "cyber_neon"],
+    "cyberpunk": ["cyber_neon", "devtools_terminal", "retro_nostalgia"],
+    "flat-design": ["minimalist_flat", "system_design", "saas_product"],
+    "glassmorphism": ["glass_gradient", "dark_premium", "saas_product"],
+    "hand-drawn-sketch": ["expressive_campaign", "organic_nature", "playful_3d"],
+    "industrial": ["tactile_material", "system_design", "geometric_modernist"],
+    "kinetic": ["motion_kinetic", "typography_grid", "brutalist_poster"],
+    "luxury": ["luxury_heritage", "editorial_publishing", "typography_grid"],
+    "material": ["system_design", "minimalist_flat", "playful_3d"],
+    "maximalism": ["expressive_campaign", "retro_nostalgia", "cyber_neon"],
+    "modern-dark": ["dark_premium", "saas_product", "glass_gradient"],
+    "monochrome": ["editorial_publishing", "typography_grid", "minimalist_flat"],
+    "neo-brutalism": ["brutalist_poster", "expressive_campaign", "typography_grid"],
+    "neumorphism": ["tactile_material", "system_design", "minimalist_flat"],
+    "newsprint": ["editorial_publishing", "typography_grid", "retro_nostalgia"],
+    "organic-natural": ["organic_nature", "tactile_material", "luxury_heritage"],
+    "playful-geometric": ["expressive_campaign", "geometric_modernist", "playful_3d"],
+    "retro": ["retro_nostalgia", "system_design", "expressive_campaign"],
+    "simple-dark": ["dark_premium", "glass_gradient", "saas_product"],
+    "swiss": ["typography_grid", "geometric_modernist", "minimalist_flat"],
+    "tech-style": ["saas_product", "glass_gradient", "motion_kinetic"],
+    "terminal-cli": ["devtools_terminal", "cyber_neon", "dark_premium"],
+    "vaporwave": ["retro_nostalgia", "cyber_neon", "expressive_campaign"],
+}
+
 
 def get_theme(slug: str) -> dict[str, str]:
     return THEMES.get(slug, FALLBACK_THEME)
@@ -97,3 +154,7 @@ def category_for_slug(slug: str) -> str:
         if slug in slugs:
             return category
     return "other"
+
+
+def tag_keys_for_slug(slug: str) -> list[str]:
+    return PROMPT_TAGS.get(slug, [])

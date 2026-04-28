@@ -6,7 +6,7 @@ import json
 from html import escape
 
 from .featured_stats import ranked_featured_prompts
-from .themes import get_theme
+from .themes import TAG_KEYS, get_theme
 
 
 def summarize_description(text: str, max_length: int = 96) -> str:
@@ -22,6 +22,14 @@ def localized_category(prompt: dict, locale_config: dict) -> str:
 
 def localized_use_case(prompt: dict, locale_config: dict) -> str:
     return locale_config["use_cases"].get(prompt["category_key"], locale_config["use_cases"]["other"])
+
+
+def localized_tag(tag_key: str, locale_config: dict) -> str:
+    return locale_config.get("tag_labels", {}).get(tag_key, tag_key.replace("_", " ").title())
+
+
+def localized_tags(prompt: dict, locale_config: dict) -> list[str]:
+    return [localized_tag(tag_key, locale_config) for tag_key in prompt.get("tag_keys", [])]
 
 
 def locale_path(locale: str, slug: str | None = None) -> str:
@@ -535,7 +543,7 @@ def generate_detail_page(prompt: dict, site_config: dict, locale_code: str, feat
               <p class="section-copy">{escape(use_case)}</p>
             </div>
           </div>
-          <div class="detail-keywords">{"".join(f'<span class="catalog-keyword">{escape(keyword)}</span>' for keyword in prompt['keywords'])}</div>
+          <div class="detail-keywords">{"".join(f'<span class="catalog-keyword">{escape(tag)}</span>' for tag in localized_tags(prompt, locale_config))}</div>
         </section>
 
         <section class="section">
@@ -629,7 +637,7 @@ def compact_prompt_card(prompt: dict, locale_config: dict, *, class_name: str, i
     category_label = localized_category(prompt, locale_config)
     note = summarize_description(prompt["lead"] or prompt["description"], 128)
     index_markup = f'<span class="card-number">{escape(index_label)}</span>' if index_label else f'<span class="card-number">#{prompt["number"]:02d}</span>'
-    keyword_markup = "".join(f'<span>{escape(keyword)}</span>' for keyword in prompt["keywords"][:3])
+    keyword_markup = "".join(f'<span>{escape(tag)}</span>' for tag in localized_tags(prompt, locale_config)[:3])
     stat_line = stats_markup(prompt["slug"], stats, ui) if stats and ui else ""
     return f"""<a href="prompts/{prompt['slug']}.html" class="{class_name}" style="--card-accent:{theme['accent']};--card-bg:{theme['hero_bg']};--card-text:{theme['text']};" data-track-click data-slug="{escape(prompt['slug'])}">
   <div class="prompt-art" style="background:{theme['hero_bg']};color:{theme['text']};font-family:{theme['font']};">
@@ -667,7 +675,8 @@ def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str
     for prompt in prompts:
         theme = get_theme(prompt["slug"])
         category_label = localized_category(prompt, locale_config)
-        keyword_badges = "".join(f'<span class="catalog-keyword">{escape(keyword)}</span>' for keyword in prompt["keywords"][:4])
+        tag_labels = localized_tags(prompt, locale_config)
+        keyword_badges = "".join(f'<span class="catalog-keyword">{escape(tag)}</span>' for tag in tag_labels[:4])
         section_preview = " / ".join(prompt["layout_sections"][:4])
         sections_label = f"{len(prompt['layout_sections'])} {ui['detail']['sections_suffix']}"
         prompt_stats = featured_stats["prompts"][prompt["slug"]]
@@ -679,13 +688,14 @@ def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str
                 "note": prompt["lead"] or summarize_description(prompt["description"], 72),
                 "href": f"prompts/{prompt['slug']}.html",
                 "accent": theme["accent"],
+                "category": category_label,
                 "click_count": prompt_stats["click_count"],
                 "like_count": prompt_stats["like_count"],
                 "score": prompt_stats["score"],
             }
         )
         cards.append(
-            f"""<a href="prompts/{prompt['slug']}.html" class="catalog-item" data-track-click data-slug="{escape(prompt['slug'])}" data-mode="{escape(prompt['mode'])}" data-font="{escape(prompt['font'])}" data-category="{escape(category_label)}" data-category-search="{escape(category_label.lower())}" data-keywords="{escape(' '.join(prompt['keywords']).lower())}" data-name="{escape(prompt['name'].lower())}" style="--card-accent:{theme['accent']};--card-bg:{theme['hero_bg']};--card-text:{theme['text']};">
+            f"""<a href="prompts/{prompt['slug']}.html" class="catalog-item" data-track-click data-slug="{escape(prompt['slug'])}" data-mode="{escape(prompt['mode'])}" data-font="{escape(prompt['font'])}" data-category="{escape(category_label)}" data-category-search="{escape(category_label.lower())}" data-tags="{escape(' '.join(prompt['tag_keys']))}" data-keywords="{escape((' '.join(prompt['keywords']) + ' ' + ' '.join(tag_labels)).lower())}" data-name="{escape(prompt['name'].lower())}" style="--card-accent:{theme['accent']};--card-bg:{theme['hero_bg']};--card-text:{theme['text']};">
   <div class="catalog-preview" style="background:{theme['hero_bg']};color:{theme['text']};font-family:{theme['font']};">
     <span class="catalog-preview-mark" style="color:{theme['accent']};">Aa</span>
   </div>
@@ -712,18 +722,12 @@ def generate_index_page(prompts: list[dict], site_config: dict, locale_code: str
         category_label = locale_config["category_labels"][category_key]
         category_tags.append(f'<button class="topic-chip" type="button" data-topic-category="{escape(category_label)}">{escape(category_label)}</button>')
 
-    keyword_tags = []
-    seen_keywords: set[str] = set()
-    for prompt in prompts:
-        for keyword in prompt["keywords"]:
-            if keyword.lower() in seen_keywords:
-                continue
-            seen_keywords.add(keyword.lower())
-            keyword_tags.append(f'<button class="topic-chip subtle" type="button" data-topic-search="{escape(keyword)}">{escape(keyword)}</button>')
-            if len(keyword_tags) >= 8:
-                break
-        if len(keyword_tags) >= 8:
-            break
+    used_tag_keys = {tag_key for prompt in prompts for tag_key in prompt.get("tag_keys", [])}
+    keyword_tags = [
+        f'<button class="topic-chip subtle" type="button" data-topic-tag="{escape(tag_key)}">{escape(localized_tag(tag_key, locale_config))}</button>'
+        for tag_key in TAG_KEYS
+        if tag_key in used_tag_keys
+    ]
 
     head = base_head(
         site_config,
@@ -1040,7 +1044,7 @@ def generate_detail_page(prompt: dict, site_config: dict, locale_code: str, feat
         <section class="section">
           <h2 class="section-title">{escape(ui['detail']['fit_title'])}</h2>
           <p class="section-copy">{escape(use_case)}</p>
-          <div class="detail-keywords">{"".join(f'<span class="catalog-keyword">{escape(keyword)}</span>' for keyword in prompt['keywords'])}</div>
+          <div class="detail-keywords">{"".join(f'<span class="catalog-keyword">{escape(tag)}</span>' for tag in localized_tags(prompt, locale_config))}</div>
         </section>
         <section class="section">
           <h2 class="section-title">{escape(ui['detail']['coverage_title'])}</h2>
