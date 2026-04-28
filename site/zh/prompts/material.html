@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Playful, dynamic color extraction, pill-shaped buttons, and ...">
 <meta name="keywords" content="design prompts, ui prompts, static site, prompt library, design system inspiration">
-<meta name="author" content="gwzz">
-<meta name="theme-color" content="#0b0b12">
+<meta name="theme-color" content="#fafafa">
 <link rel="canonical" href="https://design-prompts-collection.vercel.app/zh/prompts/material.html">
 <link rel="alternate" hreflang="en" href="https://design-prompts-collection.vercel.app/en/prompts/material.html"><link rel="alternate" hreflang="zh-CN" href="https://design-prompts-collection.vercel.app/zh/prompts/material.html"><link rel="alternate" hreflang="x-default" href="https://design-prompts-collection.vercel.app/en/prompts/material.html">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
@@ -21,50 +20,84 @@
 <meta name="twitter:description" content="Playful, dynamic color extraction, pill-shaped buttons, and ...">
 <meta name="twitter:image" content="https://design-prompts-collection.vercel.app/assets/og-cover.svg">
 <title>Material | Design Prompts Collection</title>
+<script>
+  (function() {
+    try {
+      var stored = localStorage.getItem('dpc-theme-v1');
+      var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+      document.documentElement.dataset.theme = theme;
+    } catch (error) {
+      document.documentElement.dataset.theme = 'light';
+    }
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Nunito:wght@400;700;900&family=Patrick+Hand&family=Playfair+Display:wght@400;700;900&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/styles.css">
 </head>
-<body data-copy-success="已复制" data-copy-failed="复制失败" data-clicks-label="点击" data-likes-label="点赞" data-score-label="热度" data-like-button-label="点赞这个 Prompt" data-liked-button-label="已点赞" data-prompt-slug="material" data-api-base="../../api">
-  <main class="detail-page">
-    <section class="masthead">
-      <div class="masthead-inner">
-        <span class="masthead-brand">Design Prompts Collection</span>
-        <div class="masthead-links">
-          <a href="../index.html">浏览</a>
-          <a href="../index.html#featured">精选</a>
-        </div>
+<body data-copy-success="已复制" data-copy-failed="复制失败" data-like-button-label="点赞这个 Prompt" data-liked-button-label="已点赞" data-prompt-slug="material" data-api-base="../../api">
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="masthead-brand" href="../index.html">Design Prompts Collection</a>
+      <nav class="masthead-links" aria-label="Primary">
+        <a href="../index.html#catalog">浏览</a>
+        <a href="../index.html#featured">精选</a>
+      </nav>
+      <div class="masthead-actions">
+        <div class="theme-switcher" aria-label="配色">
+  <button class="theme-option" type="button" data-theme-option="light">浅色</button>
+  <button class="theme-option" type="button" data-theme-option="dark">深色</button>
+</div>
         <div class="lang-switcher" aria-label="语言">
   <a class="lang-link" href="../../en/prompts/material.html" data-locale-link data-locale="en">EN</a><a class="lang-link active" href="../../zh/prompts/material.html" data-locale-link data-locale="zh">中文</a>
 </div>
       </div>
-    </section>
-    <header class="detail-header">
-      <a class="back-link" href="../index.html">返回列表</a>
-      <div class="eyebrow">Prompt 详情</div>
-      <div class="detail-title-row">
-        <span class="detail-kicker">#15</span>
-        <h1>Material</h1>
-      </div>
-      <div class="badge-row">
-        <span class="badge" style="background:#f1f5f9;color:#334155;">light</span>
-        <span class="badge" style="background:#dbeafe;color:#1d4ed8;">sans-serif</span>
-        <span class="badge cat-badge">科技 / SaaS / 金融</span>
-        <span class="badge detail-sections">12 个区块</span>
-      </div>
-      <p class="detail-desc">Playful, dynamic color extraction, pill-shaped buttons, and distinct elevation states. Based on Google&#x27;s Material Design 3 with enhanced depth and micro-interactions.</p>
-    </header>
+    </div>
+  </header>
 
-    <section class="detail-grid">
+  <main class="detail-page" style="--prompt-accent:#6750a4;">
+    <section class="detail-hero">
+      <a class="back-link" href="../index.html">返回列表</a>
+      <div class="detail-hero-grid">
+        <div>
+          <p class="eyebrow">Prompt 详情</p>
+          <div class="detail-title-row">
+            <span class="detail-kicker">#15</span>
+            <h1>Material</h1>
+          </div>
+          <p class="detail-desc">Playful, dynamic color extraction, pill-shaped buttons, and distinct elevation states. Based on Google&#x27;s Material Design 3 with enhanced depth and micro-interactions.</p>
+          <div class="detail-tabs">
+            <a href="#visual">视觉</a>
+            <a href="#raw">Prompt</a>
+          </div>
+        </div>
+        <aside class="detail-meta-panel">
+          <div class="badge-row">
+            <span class="badge">light</span>
+            <span class="badge">sans-serif</span>
+            <span class="badge cat-badge">科技 / SaaS / 金融</span>
+            <span class="badge detail-sections">12 个区块</span>
+          </div>
+          <p>适合产品官网、AI 工具、SaaS 营销页，以及偏精致的应用界面。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="detail-layout">
       <aside class="detail-sidebar">
-        <section class="section">
-          <div class="section-head">
+        <section class="section sticky-action">
+          <h2 class="section-title">使用这个 Prompt</h2>
+          <p class="section-copy">复制后结合你的产品、受众和实际内容做局部调整。</p>
+          <button class="copy-btn primary" type="button" data-copy-target="prompt-text">复制 Prompt</button>
+        </section>
+        <section class="section engagement-section">
+          <div class="engagement-head">
             <div>
-              <h2 class="section-title">交互统计</h2>
-              <p class="section-copy">实时数据会通过统计 API 返回。如果 API 暂时不可用，页面会自动回退到当前浏览器里的 mock 数据。</p>
+              <h2 class="section-title">社区统计</h2>
+              <p class="section-copy">浏览和点赞会通过社区统计 API 更新；当 API 不可用时，会回退到当前浏览器的本地数据。</p>
             </div>
-            <button class="like-btn" type="button" data-like-button data-slug="material">点赞这个 Prompt</button>
+            <button class="like-btn" type="button" data-like-button data-slug="material" aria-pressed="false">点赞这个 Prompt</button>
           </div>
           <div class="engagement-grid">
             <article class="engagement-card">
@@ -81,30 +114,20 @@
             </article>
           </div>
         </section>
-
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">适用场景</h2>
-              <p class="section-copy">适合产品官网、AI 工具、SaaS 营销页，以及偏精致的应用界面。</p>
-            </div>
-          </div>
+          <h2 class="section-title">适用场景</h2>
+          <p class="section-copy">适合产品官网、AI 工具、SaaS 营销页，以及偏精致的应用界面。</p>
           <div class="detail-keywords"><span class="catalog-keyword">Playful</span><span class="catalog-keyword">dynamic color extraction</span><span class="catalog-keyword">pill-shaped buttons</span></div>
         </section>
-
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">区块覆盖</h2>
-              <p class="section-copy">这些是 Prompt 中明确覆盖到的页面区块。</p>
-            </div>
-          </div>
+          <h2 class="section-title">区块覆盖</h2>
+          <p class="section-copy">这些是 Prompt 中明确覆盖到的页面区块。</p>
           <div class="section-chip-grid"><span class="section-chip">Hero</span><span class="section-chip">Stats</span><span class="section-chip">Product Detail</span><span class="section-chip">Features</span><span class="section-chip">Blog</span><span class="section-chip">How It Works</span><span class="section-chip">Benefits</span><span class="section-chip">Testimonials</span><span class="section-chip">Pricing</span><span class="section-chip">FAQ</span><span class="section-chip">Final CTA</span><span class="section-chip">Footer</span></div>
         </section>
       </aside>
 
       <div class="detail-main">
-        <section class="section">
+        <section class="section preview-section" id="visual">
           <div class="section-head">
             <div>
               <h2 class="section-title">风格预览</h2>
@@ -119,23 +142,23 @@
     </div>
   </nav>
   <section style="padding:64px 28px 54px;text-align:center;">
-    <div style="display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid rgba(0,0,0,0.12);background:rgba(255,255,255,0.04);font-size:0.74rem;text-transform:uppercase;letter-spacing:0.08em;">风格预览</div>
-    <h2 style="font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:22px 0 14px;">Build something<br>beautiful today</h2>
+    <div style="display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid rgba(0,0,0,0.12);background:rgba(255,255,255,0.04);font-size:0.74rem;text-transform:uppercase;letter-spacing:0;">风格预览</div>
+    <h2 class="preview-headline" style="font-size:3.1rem;line-height:1.05;margin:22px 0 14px;">Build something<br>beautiful today</h2>
     <p style="max-width:560px;margin:0 auto 24px;font-size:1.02rem;opacity:0.76;">这是一个根据该风格提示生成的示意片段，用来帮助你快速判断整体气质和结构倾向。</p>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
       <button style="padding:12px 24px;border-radius:10px;border:1px solid #6750a4;background:#6750a4;color:#fff;font-weight:600;">立即开始</button>
       <button style="padding:12px 24px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#1c1b1f;font-weight:600;">了解更多</button>
     </div>
   </section>
-  <section style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,0,0,0.12);border-bottom:1px solid rgba(0,0,0,0.12);">
-    <div style="padding:22px;text-align:center;"><div style="font-size:1.9rem;font-weight:800;color:#6750a4;">10K+</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.1em;">用户</div></div>
-    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#6750a4;">99.9%</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.1em;">稳定性</div></div>
-    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#6750a4;">50+</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.1em;">功能</div></div>
-    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#6750a4;">24/7</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.1em;">支持</div></div>
+  <section class="preview-stats" style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,0,0,0.12);border-bottom:1px solid rgba(0,0,0,0.12);">
+    <div style="padding:22px;text-align:center;"><div style="font-size:1.9rem;font-weight:800;color:#6750a4;">10K+</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0;">用户</div></div>
+    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#6750a4;">99.9%</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0;">稳定性</div></div>
+    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#6750a4;">50+</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0;">功能</div></div>
+    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#6750a4;">24/7</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0;">支持</div></div>
   </section>
   <section style="padding:42px 28px;">
     <h3 style="margin:0 0 18px;text-align:center;font-size:1.7rem;">核心特征</h3>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+    <div class="preview-features-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
       <article style="padding:24px;border-radius:14px;background:#f3edf7;border:1px solid rgba(0,0,0,0.08);"><div style="font-size:1.8rem;margin-bottom:12px;">A</div><strong>起点明确</strong><p style="margin:8px 0 0;opacity:0.75;font-size:0.9rem;">先给出干净而清晰的视觉方向。</p></article>
       <article style="padding:24px;border-radius:14px;background:#f3edf7;border:1px solid rgba(0,0,0,0.08);"><div style="font-size:1.8rem;margin-bottom:12px;">B</div><strong>层级清楚</strong><p style="margin:8px 0 0;opacity:0.75;font-size:0.9rem;">让信息结构和节奏更容易落地。</p></article>
       <article style="padding:24px;border-radius:14px;background:#f3edf7;border:1px solid rgba(0,0,0,0.08);"><div style="font-size:1.8rem;margin-bottom:12px;">C</div><strong>语言可迁移</strong><p style="margin:8px 0 0;opacity:0.75;font-size:0.9rem;">方便你直接拿去改写成自己的项目 Prompt。</p></article>
@@ -145,6 +168,93 @@
         </section>
 
         <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">色彩系统</h2>
+              <p class="section-copy">根据该风格 Prompt 推导出的关键颜色。</p>
+            </div>
+          </div>
+          <div class="palette-grid"><div class="palette-item">
+  <span class="palette-swatch" style="background:#6750a4;"></span>
+  <strong>主色</strong>
+  <code>#6750a4</code>
+</div><div class="palette-item">
+  <span class="palette-swatch" style="background:#fffbfe;"></span>
+  <strong>背景</strong>
+  <code>#fffbfe</code>
+</div><div class="palette-item">
+  <span class="palette-swatch" style="background:#f3edf7;"></span>
+  <strong>表面</strong>
+  <code>#f3edf7</code>
+</div><div class="palette-item">
+  <span class="palette-swatch" style="background:#1c1b1f;"></span>
+  <strong>文本</strong>
+  <code>#1c1b1f</code>
+</div></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">字体与排版</h2>
+              <p class="section-copy">用于迁移该 Prompt 的字体系统和层级提示。</p>
+            </div>
+          </div>
+          <div class="type-panel"><div class="type-spec display" style="font-family:'Roboto',sans-serif;">Aa</div>
+<div class="type-spec-copy">
+  <span>sans-serif</span>
+  <strong style="font-family:'Roboto',sans-serif;">Material</strong>
+  <p>Playful, dynamic color extraction, pill-shaped buttons, and distinct elevation states. Based on Google&#x27;s Material Design 3 with enhanced...</p>
+</div></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Prompt 结构</h2>
+              <p class="section-copy">该 Prompt 明确覆盖的主要页面区块。</p>
+            </div>
+          </div>
+          <div class="anatomy-grid"><article class="anatomy-item">
+  <span>01</span>
+  <strong>Hero</strong>
+</article><article class="anatomy-item">
+  <span>02</span>
+  <strong>Stats</strong>
+</article><article class="anatomy-item">
+  <span>03</span>
+  <strong>Product Detail</strong>
+</article><article class="anatomy-item">
+  <span>04</span>
+  <strong>Features</strong>
+</article><article class="anatomy-item">
+  <span>05</span>
+  <strong>Blog</strong>
+</article><article class="anatomy-item">
+  <span>06</span>
+  <strong>How It Works</strong>
+</article><article class="anatomy-item">
+  <span>07</span>
+  <strong>Benefits</strong>
+</article><article class="anatomy-item">
+  <span>08</span>
+  <strong>Testimonials</strong>
+</article><article class="anatomy-item">
+  <span>09</span>
+  <strong>Pricing</strong>
+</article><article class="anatomy-item">
+  <span>10</span>
+  <strong>FAQ</strong>
+</article><article class="anatomy-item">
+  <span>11</span>
+  <strong>Final CTA</strong>
+</article><article class="anatomy-item">
+  <span>12</span>
+  <strong>Footer</strong>
+</article></div>
+        </section>
+
+        <section class="section" id="raw">
           <div class="section-head">
             <div>
               <h2 class="section-title">完整 Prompt</h2>

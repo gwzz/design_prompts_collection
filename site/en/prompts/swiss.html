@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="A rigorous implementation of the International Typographic S...">
 <meta name="keywords" content="design prompts, ui prompts, static site, prompt library, design system inspiration">
-<meta name="author" content="gwzz">
-<meta name="theme-color" content="#0b0b12">
+<meta name="theme-color" content="#fafafa">
 <link rel="canonical" href="https://design-prompts-collection.vercel.app/en/prompts/swiss.html">
 <link rel="alternate" hreflang="en" href="https://design-prompts-collection.vercel.app/en/prompts/swiss.html"><link rel="alternate" hreflang="zh-CN" href="https://design-prompts-collection.vercel.app/zh/prompts/swiss.html"><link rel="alternate" hreflang="x-default" href="https://design-prompts-collection.vercel.app/en/prompts/swiss.html">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
@@ -21,50 +20,84 @@
 <meta name="twitter:description" content="A rigorous implementation of the International Typographic S...">
 <meta name="twitter:image" content="https://design-prompts-collection.vercel.app/assets/og-cover.svg">
 <title>Swiss | Design Prompts Collection</title>
+<script>
+  (function() {
+    try {
+      var stored = localStorage.getItem('dpc-theme-v1');
+      var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+      document.documentElement.dataset.theme = theme;
+    } catch (error) {
+      document.documentElement.dataset.theme = 'light';
+    }
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Nunito:wght@400;700;900&family=Patrick+Hand&family=Playfair+Display:wght@400;700;900&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/styles.css">
 </head>
-<body data-copy-success="Copied" data-copy-failed="Copy failed" data-clicks-label="Clicks" data-likes-label="Likes" data-score-label="Score" data-like-button-label="Like this prompt" data-liked-button-label="Liked" data-prompt-slug="swiss" data-api-base="../../api">
-  <main class="detail-page">
-    <section class="masthead">
-      <div class="masthead-inner">
-        <span class="masthead-brand">Design Prompts Collection</span>
-        <div class="masthead-links">
-          <a href="../index.html">Browse</a>
-          <a href="../index.html#featured">Featured</a>
-        </div>
+<body data-copy-success="Copied" data-copy-failed="Copy failed" data-like-button-label="Like this prompt" data-liked-button-label="Liked" data-prompt-slug="swiss" data-api-base="../../api">
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="masthead-brand" href="../index.html">Design Prompts Collection</a>
+      <nav class="masthead-links" aria-label="Primary">
+        <a href="../index.html#catalog">Browse</a>
+        <a href="../index.html#featured">Featured</a>
+      </nav>
+      <div class="masthead-actions">
+        <div class="theme-switcher" aria-label="Theme">
+  <button class="theme-option" type="button" data-theme-option="light">Light</button>
+  <button class="theme-option" type="button" data-theme-option="dark">Dark</button>
+</div>
         <div class="lang-switcher" aria-label="Language">
   <a class="lang-link active" href="../../en/prompts/swiss.html" data-locale-link data-locale="en">EN</a><a class="lang-link" href="../../zh/prompts/swiss.html" data-locale-link data-locale="zh">中文</a>
 </div>
       </div>
-    </section>
-    <header class="detail-header">
-      <a class="back-link" href="../index.html">Back to collection</a>
-      <div class="eyebrow">Prompt detail</div>
-      <div class="detail-title-row">
-        <span class="detail-kicker">#29</span>
-        <h1>Swiss</h1>
-      </div>
-      <div class="badge-row">
-        <span class="badge" style="background:#f1f5f9;color:#334155;">light</span>
-        <span class="badge" style="background:#dbeafe;color:#1d4ed8;">sans-serif</span>
-        <span class="badge cat-badge">Editorial / Type / Institutional</span>
-        <span class="badge detail-sections">11 sections</span>
-      </div>
-      <p class="detail-desc">A rigorous implementation of the International Typographic Style (1950s). Characterized by objective typography, sans-serif fonts (Inter), mathematical grids with subtle texture patterns, and a strict black/white/red palette. Prioritizes readability, precision, asymmetrical organization, and visual depth through layered patterns.</p>
-    </header>
+    </div>
+  </header>
 
-    <section class="detail-grid">
+  <main class="detail-page" style="--prompt-accent:#ff0000;">
+    <section class="detail-hero">
+      <a class="back-link" href="../index.html">Back to collection</a>
+      <div class="detail-hero-grid">
+        <div>
+          <p class="eyebrow">Prompt detail</p>
+          <div class="detail-title-row">
+            <span class="detail-kicker">#29</span>
+            <h1>Swiss</h1>
+          </div>
+          <p class="detail-desc">A rigorous implementation of the International Typographic Style (1950s). Characterized by objective typography, sans-serif fonts (Inter), mathematical grids with subtle texture patterns, and a strict black/white/red palette. Prioritizes readability, precision, asymmetrical organization, and visual depth through layered patterns.</p>
+          <div class="detail-tabs">
+            <a href="#visual">Visual</a>
+            <a href="#raw">Prompt</a>
+          </div>
+        </div>
+        <aside class="detail-meta-panel">
+          <div class="badge-row">
+            <span class="badge">light</span>
+            <span class="badge">sans-serif</span>
+            <span class="badge cat-badge">Editorial / Type / Institutional</span>
+            <span class="badge detail-sections">11 sections</span>
+          </div>
+          <p>Best for editorial sites, portfolios, publications, and brand-heavy storytelling pages.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="detail-layout">
       <aside class="detail-sidebar">
-        <section class="section">
-          <div class="section-head">
+        <section class="section sticky-action">
+          <h2 class="section-title">Use this prompt</h2>
+          <p class="section-copy">Copy the prompt, then adapt the details to your own product, audience, and content.</p>
+          <button class="copy-btn primary" type="button" data-copy-target="prompt-text">Copy prompt</button>
+        </section>
+        <section class="section engagement-section">
+          <div class="engagement-head">
             <div>
-              <h2 class="section-title">Engagement</h2>
-              <p class="section-copy">Live stats come from the analytics API. If the API is unavailable, the page falls back to local mock data in this browser.</p>
+              <h2 class="section-title">Community stats</h2>
+              <p class="section-copy">Views and likes are updated through the community stats API, with local fallback data when the API is unavailable.</p>
             </div>
-            <button class="like-btn" type="button" data-like-button data-slug="swiss">Like this prompt</button>
+            <button class="like-btn" type="button" data-like-button data-slug="swiss" aria-pressed="false">Like this prompt</button>
           </div>
           <div class="engagement-grid">
             <article class="engagement-card">
@@ -81,30 +114,20 @@
             </article>
           </div>
         </section>
-
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Prompt fit</h2>
-              <p class="section-copy">Best for editorial sites, portfolios, publications, and brand-heavy storytelling pages.</p>
-            </div>
-          </div>
+          <h2 class="section-title">Prompt fit</h2>
+          <p class="section-copy">Best for editorial sites, portfolios, publications, and brand-heavy storytelling pages.</p>
           <div class="detail-keywords"><span class="catalog-keyword">A rigorous implementation of the International Typographic Style (1950s)</span><span class="catalog-keyword">Characterized by objective typography</span><span class="catalog-keyword">sans-serif fonts (Inter)</span></div>
         </section>
-
         <section class="section">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">Layout coverage</h2>
-              <p class="section-copy">These are the sections explicitly shaped inside the prompt.</p>
-            </div>
-          </div>
+          <h2 class="section-title">Layout coverage</h2>
+          <p class="section-copy">These are the sections explicitly shaped inside the prompt.</p>
           <div class="section-chip-grid"><span class="section-chip">Hero</span><span class="section-chip">Stats</span><span class="section-chip">Product Detail</span><span class="section-chip">Features</span><span class="section-chip">How It Works</span><span class="section-chip">Benefits</span><span class="section-chip">Testimonials</span><span class="section-chip">Pricing</span><span class="section-chip">FAQ</span><span class="section-chip">Blog</span><span class="section-chip">Footer</span></div>
         </section>
       </aside>
 
       <div class="detail-main">
-        <section class="section">
+        <section class="section preview-section" id="visual">
           <div class="section-head">
             <div>
               <h2 class="section-title">Style preview</h2>
@@ -119,23 +142,23 @@
     </div>
   </nav>
   <section style="padding:64px 28px 54px;text-align:center;">
-    <div style="display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid rgba(0,0,0,0.12);background:rgba(255,255,255,0.04);font-size:0.74rem;text-transform:uppercase;letter-spacing:0.08em;">Design system preview</div>
-    <h2 style="font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:22px 0 14px;">Build something<br>beautiful today</h2>
+    <div style="display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid rgba(0,0,0,0.12);background:rgba(255,255,255,0.04);font-size:0.74rem;text-transform:uppercase;letter-spacing:0;">Design system preview</div>
+    <h2 class="preview-headline" style="font-size:3.1rem;line-height:1.05;margin:22px 0 14px;">Build something<br>beautiful today</h2>
     <p style="max-width:560px;margin:0 auto 24px;font-size:1.02rem;opacity:0.76;">A complete visual system shaped for the modern web, with clear structure, strong hierarchy, and focused interaction.</p>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
       <button style="padding:12px 24px;border-radius:0;border:1px solid #ff0000;background:#ff0000;color:#fff;font-weight:600;">Get started</button>
       <button style="padding:12px 24px;border-radius:0;border:1px solid rgba(0,0,0,0.12);background:transparent;color:#000000;font-weight:600;">Learn more</button>
     </div>
   </section>
-  <section style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,0,0,0.12);border-bottom:1px solid rgba(0,0,0,0.12);">
-    <div style="padding:22px;text-align:center;"><div style="font-size:1.9rem;font-weight:800;color:#ff0000;">10K+</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.1em;">Users</div></div>
-    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#ff0000;">99.9%</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.1em;">Uptime</div></div>
-    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#ff0000;">50+</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.1em;">Features</div></div>
-    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#ff0000;">24/7</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0.1em;">Support</div></div>
+  <section class="preview-stats" style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,0,0,0.12);border-bottom:1px solid rgba(0,0,0,0.12);">
+    <div style="padding:22px;text-align:center;"><div style="font-size:1.9rem;font-weight:800;color:#ff0000;">10K+</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0;">Users</div></div>
+    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#ff0000;">99.9%</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0;">Uptime</div></div>
+    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#ff0000;">50+</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0;">Features</div></div>
+    <div style="padding:22px;text-align:center;border-left:1px solid rgba(0,0,0,0.12);"><div style="font-size:1.9rem;font-weight:800;color:#ff0000;">24/7</div><div style="font-size:0.75rem;opacity:0.65;text-transform:uppercase;letter-spacing:0;">Support</div></div>
   </section>
   <section style="padding:42px 28px;">
     <h3 style="margin:0 0 18px;text-align:center;font-size:1.7rem;">Core features</h3>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+    <div class="preview-features-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
       <article style="padding:24px;border-radius:14px;background:#f5f5f5;border:1px solid rgba(0,0,0,0.08);"><div style="font-size:1.8rem;margin-bottom:12px;">A</div><strong>Fast setup</strong><p style="margin:8px 0 0;opacity:0.75;font-size:0.9rem;">A focused starting point with clean visual direction.</p></article>
       <article style="padding:24px;border-radius:14px;background:#f5f5f5;border:1px solid rgba(0,0,0,0.08);"><div style="font-size:1.8rem;margin-bottom:12px;">B</div><strong>Clear hierarchy</strong><p style="margin:8px 0 0;opacity:0.75;font-size:0.9rem;">Strong layout rhythm keeps content readable and sharp.</p></article>
       <article style="padding:24px;border-radius:14px;background:#f5f5f5;border:1px solid rgba(0,0,0,0.08);"><div style="font-size:1.8rem;margin-bottom:12px;">C</div><strong>Reusable language</strong><p style="margin:8px 0 0;opacity:0.75;font-size:0.9rem;">A visual reference you can lift directly into prompts and prototypes.</p></article>
@@ -145,6 +168,90 @@
         </section>
 
         <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Color Palette</h2>
+              <p class="section-copy">Key colors inferred from the prompt&#x27;s style language.</p>
+            </div>
+          </div>
+          <div class="palette-grid"><div class="palette-item">
+  <span class="palette-swatch" style="background:#ff0000;"></span>
+  <strong>Primary</strong>
+  <code>#ff0000</code>
+</div><div class="palette-item">
+  <span class="palette-swatch" style="background:#ffffff;"></span>
+  <strong>Background</strong>
+  <code>#ffffff</code>
+</div><div class="palette-item">
+  <span class="palette-swatch" style="background:#f5f5f5;"></span>
+  <strong>Surface</strong>
+  <code>#f5f5f5</code>
+</div><div class="palette-item">
+  <span class="palette-swatch" style="background:#000000;"></span>
+  <strong>Text</strong>
+  <code>#000000</code>
+</div></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Typography</h2>
+              <p class="section-copy">Font family and scale cues for adapting the prompt.</p>
+            </div>
+          </div>
+          <div class="type-panel"><div class="type-spec display" style="font-family:'Inter',sans-serif;">Aa</div>
+<div class="type-spec-copy">
+  <span>sans-serif</span>
+  <strong style="font-family:'Inter',sans-serif;">Swiss</strong>
+  <p>A rigorous implementation of the International Typographic Style (1950s). Characterized by objective typography, sans-serif fonts (Inter)...</p>
+</div></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Prompt Anatomy</h2>
+              <p class="section-copy">The main page sections explicitly shaped by this prompt.</p>
+            </div>
+          </div>
+          <div class="anatomy-grid"><article class="anatomy-item">
+  <span>01</span>
+  <strong>Hero</strong>
+</article><article class="anatomy-item">
+  <span>02</span>
+  <strong>Stats</strong>
+</article><article class="anatomy-item">
+  <span>03</span>
+  <strong>Product Detail</strong>
+</article><article class="anatomy-item">
+  <span>04</span>
+  <strong>Features</strong>
+</article><article class="anatomy-item">
+  <span>05</span>
+  <strong>How It Works</strong>
+</article><article class="anatomy-item">
+  <span>06</span>
+  <strong>Benefits</strong>
+</article><article class="anatomy-item">
+  <span>07</span>
+  <strong>Testimonials</strong>
+</article><article class="anatomy-item">
+  <span>08</span>
+  <strong>Pricing</strong>
+</article><article class="anatomy-item">
+  <span>09</span>
+  <strong>FAQ</strong>
+</article><article class="anatomy-item">
+  <span>10</span>
+  <strong>Blog</strong>
+</article><article class="anatomy-item">
+  <span>11</span>
+  <strong>Footer</strong>
+</article></div>
+        </section>
+
+        <section class="section" id="raw">
           <div class="section-head">
             <div>
               <h2 class="section-title">Full prompt</h2>

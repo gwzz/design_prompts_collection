@@ -1,6 +1,8 @@
 const state = { mode: 'all', font: 'all', category: 'all' };
+const THEME_STORAGE_KEY = 'dpc-theme-v1';
 const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
 const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
+const apiBase = document.body.dataset.apiBase || '../api';
 
 function readJsonScript(id, fallback) {
   const element = document.getElementById(id);
@@ -18,14 +20,6 @@ function readStorageMap(key) {
     return raw ? JSON.parse(raw) : {};
   } catch (error) {
     return {};
-  }
-}
-
-function writeStorageMap(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch (error) {
-    // Ignore storage failures.
   }
 }
 
@@ -49,15 +43,29 @@ function escapeHtml(value) {
 
 const promptIndex = readJsonScript('prompt-index-data', []);
 const featuredStatsSeed = readJsonScript('featured-stats-data', { weights: { click: 1, like: 5 }, prompts: {} });
-const featuredUi = readJsonScript('featured-ui-data', {
-  clicksLabel: 'Clicks',
-  likesLabel: 'Likes',
-  scoreLabel: 'Score',
-  sourceTitle: 'Featured ranking',
-  sourceBody: 'Featured ranking blends clicks and likes.',
-  limit: 3,
-});
-const apiBase = document.body.dataset.apiBase || '../api';
+
+function applyTheme(theme) {
+  const nextTheme = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = nextTheme;
+  document.querySelectorAll('[data-theme-option]').forEach((button) => {
+    const active = button.dataset.themeOption === nextTheme;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function initThemeControls() {
+  const initialTheme = document.documentElement.dataset.theme || 'light';
+  applyTheme(initialTheme);
+  document.querySelectorAll('[data-theme-option]').forEach((button) => {
+    button.addEventListener('click', () => applyTheme(button.dataset.themeOption));
+  });
+}
 
 function getFallbackStats(slug) {
   const clickDeltas = readStorageMap(CLICK_STORAGE_KEY);
@@ -76,29 +84,37 @@ function promptMap() {
   return new Map(promptIndex.map((prompt) => [prompt.slug, prompt]));
 }
 
-function renderFeaturedFromItems(items) {
-  const root = document.getElementById('featuredList');
+function updateStatContainers(slug, stats) {
+  document.querySelectorAll(`[data-stat-for="${slug}"]`).forEach((container) => {
+    const clickTarget = container.querySelector('[data-stat-click-count]');
+    const likeTarget = container.querySelector('[data-stat-like-count]');
+    if (clickTarget) clickTarget.textContent = stats.click_count;
+    if (likeTarget) likeTarget.textContent = stats.like_count;
+  });
+}
+
+function renderTrendingFromItems(items) {
+  const root = document.querySelector('.trend-list');
   if (!root || !items.length) return;
   const prompts = promptMap();
   root.innerHTML = items
-    .map((item) => {
+    .map((item, index) => {
       const prompt = prompts.get(item.slug);
       if (!prompt) return '';
-      return `
-<a href="${escapeHtml(prompt.href)}" class="featured-link" data-featured-item data-track-click data-slug="${escapeHtml(prompt.slug)}" style="--card-accent:${escapeHtml(prompt.accent)};">
-  <span class="featured-index">#${String(prompt.number).padStart(2, '0')}</span>
-  <span class="featured-name">${escapeHtml(prompt.name)}</span>
-  <span class="featured-note">${escapeHtml(prompt.note)}</span>
-  <span class="featured-stats">
-    <span class="featured-stat"><strong data-stat-click-count>${item.click_count}</strong> ${escapeHtml(featuredUi.clicksLabel)}</span>
-    <span class="featured-stat"><strong data-stat-like-count>${item.like_count}</strong> ${escapeHtml(featuredUi.likesLabel)}</span>
-  </span>
+      return `<a href="${escapeHtml(prompt.href)}" class="trend-link" data-trending-item data-track-click data-slug="${escapeHtml(prompt.slug)}" style="--card-accent:${escapeHtml(prompt.accent)};">
+  <span class="trend-rank">${String(index + 1).padStart(2, '0')}</span>
+  <span class="trend-name">${escapeHtml(prompt.name)}</span>
+  <span class="trend-meta">${escapeHtml(prompt.category)}</span>
+  <div class="trend-stats" data-stat-for="${escapeHtml(prompt.slug)}">
+    <span><strong data-stat-click-count>${item.click_count}</strong> ${escapeHtml(featuredUi.clicksLabel)}</span>
+    <span><strong data-stat-like-count>${item.like_count}</strong> ${escapeHtml(featuredUi.likesLabel)}</span>
+  </div>
 </a>`;
     })
     .join('');
 }
 
-function renderFeaturedFallback() {
+function renderTrendingFallback() {
   const ranked = promptIndex
     .map((prompt) => ({ ...prompt, ...getFallbackStats(prompt.slug) }))
     .sort((left, right) => {
@@ -107,21 +123,23 @@ function renderFeaturedFallback() {
       if (right.click_count !== left.click_count) return right.click_count - left.click_count;
       return left.number - right.number;
     })
-    .slice(0, featuredUi.limit || 3);
-  renderFeaturedFromItems(ranked);
+    .slice(0, 8);
+  renderTrendingFromItems(ranked);
+  ranked.forEach((item) => updateStatContainers(item.slug, item));
 }
 
-async function refreshFeaturedFromApi() {
+async function refreshTrendingFromApi() {
   if (!promptIndex.length) return false;
   try {
-    const response = await fetch(`${apiBase}/featured?limit=${featuredUi.limit || 3}`, {
+    const response = await fetch(`${apiBase}/featured?limit=8`, {
       headers: { Accept: 'application/json' },
       cache: 'no-store',
     });
     if (!response.ok) return false;
     const payload = await response.json();
     if (!payload.items || !Array.isArray(payload.items)) return false;
-    renderFeaturedFromItems(payload.items);
+    renderTrendingFromItems(payload.items);
+    payload.items.forEach((item) => updateStatContainers(item.slug, item));
     return true;
   } catch (error) {
     return false;
@@ -129,12 +147,14 @@ async function refreshFeaturedFromApi() {
 }
 
 function setActive(group, button) {
+  if (!group) return;
   group.querySelectorAll('[data-selectable]').forEach((item) => item.classList.remove('active'));
   button.classList.add('active');
 }
 
 function filterCards() {
-  const search = document.getElementById('searchInput').value.trim().toLowerCase();
+  const searchInput = document.getElementById('searchInput');
+  const search = searchInput ? searchInput.value.trim().toLowerCase() : '';
   let visible = 0;
 
   document.querySelectorAll('.catalog-item').forEach((card) => {
@@ -146,16 +166,23 @@ function filterCards() {
       card.dataset.name.includes(search) ||
       card.dataset.mode.includes(search) ||
       card.dataset.font.includes(search) ||
-      card.dataset.categorySearch.includes(search);
+      card.dataset.categorySearch.includes(search) ||
+      (card.dataset.keywords || '').includes(search) ||
+      card.textContent.toLowerCase().includes(search);
 
     const isVisible = matchesMode && matchesFont && matchesCategory && matchesSearch;
     card.hidden = !isVisible;
     if (isVisible) visible += 1;
   });
 
-  const suffix = document.body.dataset.resultsSuffix || 'styles';
-  document.getElementById('resultCount').textContent = `${visible} ${suffix}`;
-  document.getElementById('noResults').hidden = visible !== 0;
+  const resultCount = document.getElementById('resultCount');
+  if (resultCount) {
+    const suffix = document.body.dataset.resultsSuffix || 'styles';
+    resultCount.textContent = `${visible} ${suffix}`;
+  }
+
+  const noResults = document.getElementById('noResults');
+  if (noResults) noResults.hidden = visible !== 0;
 }
 
 document.querySelectorAll('[data-filter]').forEach((button) => {
@@ -167,7 +194,32 @@ document.querySelectorAll('[data-filter]').forEach((button) => {
   });
 });
 
-document.getElementById('searchInput').addEventListener('input', filterCards);
+document.querySelectorAll('[data-topic-category]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.value = '';
+    document.querySelectorAll('[data-topic-search]').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('[data-topic-category]').forEach((item) => item.classList.remove('active'));
+    button.classList.add('active');
+    state.category = button.dataset.topicCategory;
+    filterCards();
+  });
+});
+
+document.querySelectorAll('[data-topic-search]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const searchInput = document.getElementById('searchInput');
+    if (!searchInput) return;
+    const allCategoryButton = document.querySelector('[data-topic-category="all"]');
+    document.querySelectorAll('[data-topic-category]').forEach((item) => item.classList.remove('active'));
+    if (allCategoryButton) allCategoryButton.classList.add('active');
+    document.querySelectorAll('[data-topic-search]').forEach((item) => item.classList.remove('active'));
+    button.classList.add('active');
+    state.category = 'all';
+    searchInput.value = button.dataset.topicSearch;
+    filterCards();
+  });
+});
 
 document.querySelectorAll('[data-locale-link]').forEach((link) => {
   link.addEventListener('click', () => {
@@ -179,6 +231,22 @@ document.querySelectorAll('[data-locale-link]').forEach((link) => {
   });
 });
 
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    document.querySelectorAll('[data-topic-search]').forEach((item) => item.classList.remove('active'));
+    filterCards();
+  });
+  document.addEventListener('keydown', (event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      searchInput.focus();
+    }
+  });
+}
+
+initThemeControls();
 filterCards();
-renderFeaturedFallback();
-refreshFeaturedFromApi();
+promptIndex.forEach((prompt) => updateStatContainers(prompt.slug, getFallbackStats(prompt.slug)));
+renderTrendingFallback();
+refreshTrendingFromApi();

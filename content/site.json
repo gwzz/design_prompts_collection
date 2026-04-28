@@ -19,7 +19,7 @@
       "lang": "en",
       "site_title": "Design Prompts Collection | 32 UI Style Prompts",
       "site_description": "A focused static library of 32 verified UI style prompts with filtering, previews, and copy-ready prompt details.",
-      "home_intro": "A focused static library of 32 verified UI design prompts. Browse by visual language, compare styles quickly, and copy the full prompt when you are ready to build.",
+      "home_intro": "A focused static library of 32 verified UI design prompts, arranged like a design-system index so you can search, compare, and copy the right visual direction quickly.",
       "category_labels": {
         "tech": "Tech / SaaS / Finance",
         "editorial": "Editorial / Type / Institutional",
@@ -46,7 +46,7 @@
         "cards_aria_label": "Prompt styles",
         "no_results": "No styles match the current filters.",
         "results_suffix": "styles",
-        "footer_hint": "Copyright 2026. All rights reserved. Author: gwzz.",
+        "footer_hint": "A personal static collection of curated UI prompts, organized for learning, reference, and shared use.",
         "footer": {
           "privacy_title": "Privacy",
           "privacy_body": "This site is a static prompt library. It does not require sign-in or intentionally collect personal data.",
@@ -60,13 +60,30 @@
         },
         "hero_cta_primary": "Browse prompt catalog",
         "hero_cta_secondary": "See featured styles",
+        "search_label": "Search",
+        "hero_visual_label": "Curated prompt stack",
+        "all_prompts_label": "All prompts",
         "featured_label": "Featured prompts",
         "featured": {
-          "source_title": "Live ranking",
-          "source_body": "Featured ranking blends clicks and likes. When the analytics API is unavailable, the page falls back to local mock data.",
+          "source_title": "Curated picks",
+          "source_body": "Curated entry points for quickly testing distinct visual languages.",
+          "section_title": "Hand-picked styles for a fast first pass.",
+          "section_body": "Start with three high-signal directions, then branch into the full catalog when you need more nuance.",
           "clicks_label": "Clicks",
           "likes_label": "Likes",
           "score_label": "Score"
+        },
+        "trending": {
+          "title": "Trending",
+          "body": "High-utility styles with broad reuse value."
+        },
+        "just_added": {
+          "title": "Just added",
+          "body": "Fresh prompt entries from the collection."
+        },
+        "tags": {
+          "title": "Browse by tag",
+          "body": "Move by category, mood, and reusable visual keywords."
         },
         "stats": {
           "styles": "Styles",
@@ -87,7 +104,9 @@
         "catalog": {
           "kicker": "Prompt catalog",
           "title": "Browse like a design index, not a file dump.",
-          "body": "Built for fast comparison: strong first-view hierarchy, featured picks, and dense prompt metadata that help you scan before you commit."
+          "body": "Built for fast comparison: strong first-view hierarchy, featured picks, and dense prompt metadata that help you scan before you commit.",
+          "directory_title": "Explore the full prompt library.",
+          "directory_body": "Filter by mode, type system, and category. Each card gives enough structure to compare before opening the full prompt."
         },
         "preview": {
           "badge": "Design system preview",
@@ -148,8 +167,22 @@
           "copy_button": "Copy prompt",
           "copy_success": "Copied",
           "copy_failed": "Copy failed",
-          "analytics_title": "Engagement",
-          "analytics_copy": "Live stats come from the analytics API. If the API is unavailable, the page falls back to local mock data in this browser.",
+          "visual_tab": "Visual",
+          "raw_tab": "Prompt",
+          "palette_title": "Color Palette",
+          "palette_copy": "Key colors inferred from the prompt's style language.",
+          "typography_title": "Typography",
+          "typography_copy": "Font family and scale cues for adapting the prompt.",
+          "anatomy_title": "Prompt Anatomy",
+          "anatomy_copy": "The main page sections explicitly shaped by this prompt.",
+          "sticky_title": "Use this prompt",
+          "sticky_copy": "Copy the prompt, then adapt the details to your own product, audience, and content.",
+          "primary_color": "Primary",
+          "background_color": "Background",
+          "surface_color": "Surface",
+          "text_color": "Text",
+          "analytics_title": "Community stats",
+          "analytics_copy": "Views and likes are updated through the community stats API, with local fallback data when the API is unavailable.",
           "clicks_label": "Clicks",
           "likes_label": "Likes",
           "score_label": "Score",
@@ -164,6 +197,11 @@
           "label": "Language",
           "en": "EN",
           "zh": "\u4e2d\u6587"
+        },
+        "theme": {
+          "label": "Theme",
+          "light": "Light",
+          "dark": "Dark"
         }
       }
     },
@@ -171,7 +209,7 @@
       "lang": "zh-CN",
       "site_title": "Design Prompts Collection | 32 \u4e2a UI \u98ce\u683c Prompt",
       "site_description": "\u4e00\u4e2a\u805a\u7126\u7684\u9759\u6001 Prompt \u7d22\u5f15\u7ad9\uff0c\u6536\u5f55 32 \u4e2a\u7ecf\u8fc7\u9a8c\u8bc1\u7684 UI \u98ce\u683c Prompt\uff0c\u652f\u6301\u7b5b\u9009\u3001\u9884\u89c8\u4e0e\u590d\u5236\u3002",
-      "home_intro": "\u4e00\u4e2a\u805a\u7126\u7684\u9759\u6001 UI Prompt \u7d22\u5f15\u7ad9\u3002\u4f60\u53ef\u4ee5\u6309\u89c6\u89c9\u98ce\u683c\u5feb\u901f\u6d4f\u89c8\u3001\u6bd4\u8f83\u5e76\u7b5b\u9009\uff0c\u5728\u786e\u8ba4\u5408\u9002\u4e4b\u540e\u76f4\u63a5\u590d\u5236\u5b8c\u6574 Prompt\u3002",
+      "home_intro": "一个聚焦的静态 UI Prompt 索引站，像设计系统目录一样组织 32 个已验证风格，方便你搜索、比较并快速复制合适的视觉方向。",
       "category_labels": {
         "tech": "\u79d1\u6280 / SaaS / \u91d1\u878d",
         "editorial": "\u7f16\u8f91 / \u6392\u7248 / \u673a\u6784\u611f",
@@ -198,7 +236,7 @@
         "cards_aria_label": "Prompt \u98ce\u683c\u5217\u8868",
         "no_results": "\u5f53\u524d\u7b5b\u9009\u6761\u4ef6\u4e0b\u6ca1\u6709\u5339\u914d\u7684\u98ce\u683c\u3002",
         "results_suffix": "\u4e2a\u98ce\u683c",
-        "footer_hint": "\u7248\u6743\u6240\u6709 2026\u3002\u4fdd\u7559\u6240\u6709\u6743\u5229\u3002\u4f5c\u8005\uff1agwzz\u3002",
+        "footer_hint": "一个个人整理的静态 UI Prompt 收藏，用于学习、参考和共享。",
         "footer": {
           "privacy_title": "\u9690\u79c1",
           "privacy_body": "\u8fd9\u662f\u4e00\u4e2a\u9759\u6001 Prompt \u7d22\u5f15\u7ad9\uff0c\u4e0d\u9700\u8981\u767b\u5f55\uff0c\u4e5f\u4e0d\u4e3b\u52a8\u6536\u96c6\u4e2a\u4eba\u4fe1\u606f\u3002",
@@ -212,13 +250,30 @@
         },
         "hero_cta_primary": "\u6d4f\u89c8 Prompt \u7d22\u5f15",
         "hero_cta_secondary": "\u67e5\u770b\u7cbe\u9009\u98ce\u683c",
+        "search_label": "搜索",
+        "hero_visual_label": "精选 Prompt 组合",
+        "all_prompts_label": "全部 Prompt",
         "featured_label": "\u7cbe\u9009 Prompt",
         "featured": {
-          "source_title": "\u5b9e\u65f6\u6392\u540d",
-          "source_body": "\u7cbe\u9009\u6392\u540d\u7efc\u5408 click \u4e0e like\u3002\u5982\u679c\u7edf\u8ba1 API \u6682\u65f6\u4e0d\u53ef\u7528\uff0c\u9875\u9762\u4f1a\u81ea\u52a8\u56de\u9000\u5230\u672c\u5730 mock \u6570\u636e\u3002",
+          "source_title": "精选条目",
+          "source_body": "适合作为第一轮视觉探索的精选入口。",
+          "section_title": "先从高信号风格开始试。",
+          "section_body": "这三个方向覆盖了不同的视觉语气；需要更细分时，再进入完整目录继续比较。",
           "clicks_label": "\u70b9\u51fb",
           "likes_label": "\u70b9\u8d5e",
           "score_label": "\u70ed\u5ea6"
+        },
+        "trending": {
+          "title": "趋势",
+          "body": "复用价值更高的常用风格。"
+        },
+        "just_added": {
+          "title": "最近加入",
+          "body": "收藏中较新的 Prompt 条目。"
+        },
+        "tags": {
+          "title": "按标签浏览",
+          "body": "按类别、情绪和可复用视觉关键词快速移动。"
         },
         "stats": {
           "styles": "\u98ce\u683c",
@@ -239,7 +294,9 @@
         "catalog": {
           "kicker": "Prompt \u7d22\u5f15",
           "title": "\u50cf\u67e5\u8bbe\u8ba1\u76ee\u5f55\u4e00\u6837\u6d4f\u89c8\uff0c\u800c\u4e0d\u662f\u7ffb\u6587\u4ef6\u5217\u8868\u3002",
-          "body": "\u9996\u9875\u4f18\u5148\u63d0\u4f9b\u5f3a\u5c42\u7ea7\u3001\u7cbe\u9009\u5165\u53e3\u548c\u9ad8\u5bc6\u5ea6\u5143\u4fe1\u606f\uff0c\u5e2e\u52a9\u4f60\u5148\u6bd4\u8f83\u3001\u518d\u51b3\u5b9a\uff0c\u800c\u4e0d\u662f\u5148\u70b9\u5f00\u518d\u5224\u65ad\u3002"
+          "body": "\u9996\u9875\u4f18\u5148\u63d0\u4f9b\u5f3a\u5c42\u7ea7\u3001\u7cbe\u9009\u5165\u53e3\u548c\u9ad8\u5bc6\u5ea6\u5143\u4fe1\u606f\uff0c\u5e2e\u52a9\u4f60\u5148\u6bd4\u8f83\u3001\u518d\u51b3\u5b9a\uff0c\u800c\u4e0d\u662f\u5148\u70b9\u5f00\u518d\u5224\u65ad\u3002",
+          "directory_title": "浏览完整 Prompt 目录。",
+          "directory_body": "按明暗模式、字体系统和类别筛选。每张卡片都保留足够的结构信息，方便你先比较再打开详情。"
         },
         "preview": {
           "badge": "\u98ce\u683c\u9884\u89c8",
@@ -300,8 +357,22 @@
           "copy_button": "\u590d\u5236 Prompt",
           "copy_success": "\u5df2\u590d\u5236",
           "copy_failed": "\u590d\u5236\u5931\u8d25",
-          "analytics_title": "\u4ea4\u4e92\u7edf\u8ba1",
-          "analytics_copy": "\u5b9e\u65f6\u6570\u636e\u4f1a\u901a\u8fc7\u7edf\u8ba1 API \u8fd4\u56de\u3002\u5982\u679c API \u6682\u65f6\u4e0d\u53ef\u7528\uff0c\u9875\u9762\u4f1a\u81ea\u52a8\u56de\u9000\u5230\u5f53\u524d\u6d4f\u89c8\u5668\u91cc\u7684 mock \u6570\u636e\u3002",
+          "visual_tab": "视觉",
+          "raw_tab": "Prompt",
+          "palette_title": "色彩系统",
+          "palette_copy": "根据该风格 Prompt 推导出的关键颜色。",
+          "typography_title": "字体与排版",
+          "typography_copy": "用于迁移该 Prompt 的字体系统和层级提示。",
+          "anatomy_title": "Prompt 结构",
+          "anatomy_copy": "该 Prompt 明确覆盖的主要页面区块。",
+          "sticky_title": "使用这个 Prompt",
+          "sticky_copy": "复制后结合你的产品、受众和实际内容做局部调整。",
+          "primary_color": "主色",
+          "background_color": "背景",
+          "surface_color": "表面",
+          "text_color": "文本",
+          "analytics_title": "社区统计",
+          "analytics_copy": "浏览和点赞会通过社区统计 API 更新；当 API 不可用时，会回退到当前浏览器的本地数据。",
           "clicks_label": "\u70b9\u51fb",
           "likes_label": "\u70b9\u8d5e",
           "score_label": "\u70ed\u5ea6",
@@ -316,6 +387,11 @@
           "label": "\u8bed\u8a00",
           "en": "EN",
           "zh": "\u4e2d\u6587"
+        },
+        "theme": {
+          "label": "配色",
+          "light": "浅色",
+          "dark": "深色"
         }
       }
     }

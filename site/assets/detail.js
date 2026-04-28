@@ -1,9 +1,9 @@
+const THEME_STORAGE_KEY = 'dpc-theme-v1';
 const CLICK_STORAGE_KEY = 'dpc-click-deltas-v1';
 const LIKED_STORAGE_KEY = 'dpc-liked-prompts-v1';
 const CLIENT_ID_KEY = 'dpc-client-id-v1';
 const SESSION_ID_KEY = 'dpc-session-id-v1';
 const LOCAL_CLICK_MARKS_KEY = 'dpc-local-click-marks-v1';
-const copyButton = document.querySelector('[data-copy-target]');
 const apiBase = document.body.dataset.apiBase || '../../api';
 
 function readJsonScript(id, fallback) {
@@ -76,6 +76,46 @@ function getSessionId() {
   } catch (error) {
     return randomId('session');
   }
+}
+
+function applyTheme(theme) {
+  const nextTheme = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = nextTheme;
+  document.querySelectorAll('[data-theme-option]').forEach((button) => {
+    const active = button.dataset.themeOption === nextTheme;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function initThemeControls() {
+  const initialTheme = document.documentElement.dataset.theme || 'light';
+  applyTheme(initialTheme);
+  document.querySelectorAll('[data-theme-option]').forEach((button) => {
+    button.addEventListener('click', () => applyTheme(button.dataset.themeOption));
+  });
+}
+
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
 }
 
 const featuredStatsSeed = readJsonScript('featured-stats-data', { weights: { click: 1, like: 5 }, prompts: {} });
@@ -184,30 +224,6 @@ async function trackPromptView() {
   }
 }
 
-if (copyButton) {
-  copyButton.addEventListener('click', async () => {
-    const target = document.getElementById(copyButton.dataset.copyTarget);
-    if (!target) return;
-
-    try {
-      await navigator.clipboard.writeText(target.textContent);
-      const originalLabel = copyButton.textContent;
-      const successLabel = document.body.dataset.copySuccess || 'Copied';
-      copyButton.textContent = successLabel;
-      copyButton.classList.add('copied');
-      window.setTimeout(() => {
-        copyButton.textContent = originalLabel;
-        copyButton.classList.remove('copied');
-      }, 1800);
-    } catch (error) {
-      const failedLabel = document.body.dataset.copyFailed || 'Copy failed';
-      copyButton.textContent = failedLabel;
-    }
-  });
-}
-
-const likeButton = document.querySelector('[data-like-button]');
-
 async function toggleLikeViaApi(slug, nextLiked) {
   const response = await fetch(`${apiBase}/events/like`, {
     method: 'POST',
@@ -220,6 +236,27 @@ async function toggleLikeViaApi(slug, nextLiked) {
   return response.json();
 }
 
+document.querySelectorAll('[data-copy-target]').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const target = document.getElementById(button.dataset.copyTarget);
+    if (!target) return;
+
+    const originalLabel = button.textContent;
+    try {
+      await copyText(target.textContent);
+      button.textContent = document.body.dataset.copySuccess || 'Copied';
+      button.classList.add('copied');
+      window.setTimeout(() => {
+        button.textContent = originalLabel;
+        button.classList.remove('copied');
+      }, 1600);
+    } catch (error) {
+      button.textContent = document.body.dataset.copyFailed || 'Copy failed';
+    }
+  });
+});
+
+const likeButton = document.querySelector('[data-like-button]');
 if (likeButton) {
   likeButton.addEventListener('click', async () => {
     const slug = likeButton.dataset.slug;
@@ -248,6 +285,17 @@ if (likeButton) {
   });
 }
 
+document.querySelectorAll('[data-locale-link]').forEach((link) => {
+  link.addEventListener('click', () => {
+    try {
+      localStorage.setItem('preferredLocale', link.dataset.locale);
+    } catch (error) {
+      // Ignore storage failures.
+    }
+  });
+});
+
+initThemeControls();
 hydratePromptStatsFallback();
 trackPromptView();
 hydratePromptStatsFromApi();
